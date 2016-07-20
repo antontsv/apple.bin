@@ -1,0 +1,103 @@
+#!/usr/bin/env awesome-bash
+
+awesome_shell_help <<_HELP_
+       Usage: $awesome_shell_script_name image.png
+
+       Apple icon management:
+       converts image file into apple iconset [icns]
+
+       Use large input image, bigger than 1024x1024
+_HELP_
+
+required_utility convert
+required_utility identify
+required_utility iconutil
+
+temp_dir="something"
+working_directory="$temp_dir.iconset"
+file="$1"
+MSG_LINE_WITH_DOTS_MIN_LEN=50
+
+if [ ! -r "$file" ];then
+    fatal "Cannot read information from file: $file"
+fi;
+
+image_info=$(identify "$file")
+fatal_if_any_error "Cannot identify source image file. Check if you provided an image file"
+
+temp_dim=$(cut -d' ' -f 3 <<< "$image_info")
+width=$(cut -d'x' -f 1 <<< "$temp_dim")
+height=$(cut -d'x' -f 2 <<< "$temp_dim")
+
+if [ -z "$width" ] || [ "$width" -lt 1024 ];then
+    fatal "Source image is expected to be at least 1024px wide"
+fi;
+
+if [ -z "$height" ] || [ "$height" -lt 1024 ];then
+    fatal "Source image is expected to be at least 1024px high"
+fi;
+
+if [ "$width" -ne "$height" ];then
+    fatal "Source image should be square"
+fi;
+
+msg_inline "Creating working directory: $working_directory..."
+mkdir -p "$working_directory"
+verbose_exit_code
+
+cd "$working_directory" || fatal "Cannot enter working directory: $working_directory"
+
+msg "Creating images for the iconset..."
+i=0
+icon_sizes=(1024 512 512 256 256 128 128 64 64 32)
+icon_file_names=(512x512@2x 512x512
+  256x256@2x 256x256
+  128x128@2x 128x128
+  64x64@2x 64x64
+  32x32@2x 32x32)
+
+for dim in "${icon_sizes[@]}"; do
+    current_img_name="icon_${icon_file_names[$i]}.png"
+    msg_inline "Creating $current_img_name..."
+    convert -resize "${dim}x${dim}" "$file" "$current_img_name"
+    verbose_exit_code
+    i=$i+1
+done;
+
+cd ..
+
+expected_icon_file="$temp_dir.icns"
+msg_inline "Building an icon file using iconset..."
+iconutil -c icns "$working_directory"
+verbose_exit_code
+
+if [ $? -eq 0 ] && [ -r "$expected_icon_file" ];then
+    verbose_exit_code "File created: $expected_icon_file "
+    msg_inline "Opening directory with $expected_icon_file..."
+    apple_script_folder_path=$(pwd | awk -F'/' '{ for(i = NF; i >= 2; i--) { printf "folder \"%s\" ",$i; } }' | sed 's/" folder/" of folder/g')
+    osascript 1>/dev/null 2>&1 <<SCRIPT
+        tell application "Finder"
+            activate
+            select document file "$expected_icon_file" of $apple_script_folder_path of startup disk
+        end tell
+SCRIPT
+    verbose_exit_code
+fi;
+
+rm -rf "$working_directory"
+
+preview_app_name="preview_icns_file"
+rm -rf "/tmp/$preview_app_name.app"
+CURRENT_DIR=$(dirname "$0")
+if [ -r "$expected_icon_file" ];then
+    cp -r "$CURRENT_DIR/preview_icon_sample.app" "/tmp/$preview_app_name.sapp"
+    cp "$temp_dir.icns" "/tmp/$preview_app_name.sapp/Contents/Resources/"
+    cd "/tmp/$preview_app_name.sapp/Contents" || fatal "Cannot enter sample app directory /tmp/$preview_app_name.sapp"
+    sed "s/blah.icns/$temp_dir.icns/" Info.plist > Info2.plist
+    mv Info2.plist Info.plist 
+    mv "/tmp/$preview_app_name.sapp" "/tmp/$preview_app_name.app"
+    open "/tmp/$preview_app_name.app"
+    verbose_exit_code "Opening sample app with created icns file..."
+else
+    fatal "No icns file created"
+fi;

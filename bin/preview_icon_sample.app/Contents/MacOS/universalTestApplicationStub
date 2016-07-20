@@ -1,0 +1,36 @@
+#!/bin/sh
+
+PRG=$0
+
+while [ -h "$PRG" ]; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '^.*-> \(.*\)$' 2>/dev/null`
+    if expr "$link" : '^/' 2> /dev/null >/dev/null; then
+        PRG="$link"
+    else
+        PRG="`dirname "$PRG"`/$link"
+    fi
+done
+
+# set the directory abspath of the current shell script
+PROGDIR=`dirname "$PRG"`
+
+# the absolute path of the app package
+cd "$PROGDIR"/../../
+AppPackageFolder=`pwd`
+
+# the base path of the app package
+cd ..
+AppPackageRoot=`pwd`
+
+# set path to Info.plist in bundle
+InfoPlistFile="${AppPackageFolder}"/Contents/Info.plist
+
+# read the program name from CFBundleName
+CFBundleName=`/usr/libexec/PlistBuddy -c "print :CFBundleName" "${InfoPlistFile}"`
+
+# read the icon file name
+CFBundleIconFile=`/usr/libexec/PlistBuddy -c "print :CFBundleIconFile" "${InfoPlistFile}"`
+
+osascript -e "tell application \"System Events\" to display dialog \"Check your icon for '${CFBundleName}' in the Dock\" with title \"${CFBundleName}\" buttons {\" Close this app \"} default button 1 with icon path to resource \"${CFBundleIconFile}\" in bundle (path to me)"
+exit 0
