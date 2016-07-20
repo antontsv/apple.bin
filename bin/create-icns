@@ -88,8 +88,8 @@ rm -rf "$working_directory"
 
 preview_app_name="preview_icns_file"
 rm -rf "/tmp/$preview_app_name.app"
-CURRENT_DIR=$(dirname "$0")
 if [ -r "$expected_icon_file" ];then
+    CURRENT_DIR=$(dirname "$awesome_shell_script_path")
     cp -r "$CURRENT_DIR/preview_icon_sample.app" "/tmp/$preview_app_name.sapp"
     cp "$temp_dir.icns" "/tmp/$preview_app_name.sapp/Contents/Resources/"
     cd "/tmp/$preview_app_name.sapp/Contents" || fatal "Cannot enter sample app directory /tmp/$preview_app_name.sapp"
