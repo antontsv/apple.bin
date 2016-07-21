@@ -22,6 +22,9 @@ if [ ! -r "$file" ];then
     fatal "Cannot read information from file: $file"
 fi;
 
+awesome_shell_include dir
+file=$(abs_path "$file")
+
 image_info=$(identify "$file")
 fatal_if_any_error "Cannot identify source image file. Check if you provided an image file"
 
