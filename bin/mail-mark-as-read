@@ -1,0 +1,13 @@
+#!/usr/bin/env awesome-bash
+
+awesome_shell_help <<_HELP_
+Usage: $awesome_shell_script_name
+
+    Marks the last unread mail in Apple's Mail.app as read
+_HELP_
+
+required_utility osascript
+
+msg_inline "Marking the last unread email as read..."
+osascript -e ' tell application "Mail" to set read status of first message of inbox whose read status is false to true ' > /dev/null 2>&1
+verbose_exit_code
