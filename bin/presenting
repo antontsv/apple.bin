@@ -1,0 +1,70 @@
+#!/usr/bin/env awesome-bash
+
+awesome_shell_help <<_HELP_
+Usage: $awesome_shell_script_name
+
+    Set up Mac in presenting mode when using projector,
+    or video conferensing
+
+_HELP_
+
+#awesome-shell ref:48a471681i02
+
+# presenting is on by default
+mode=1
+while [[ $# -gt 0 ]]
+do
+    opt="$1"
+    shift
+
+    case $opt in
+        -d|--off)
+        mode=0
+        ;;
+        -o|--on)
+        mode=1
+        ;;
+    esac
+done;
+
+
+desktopshow(){
+    defaults write com.apple.finder CreateDesktop -bool true && killall Finder
+}
+desktophide(){
+    defaults write com.apple.finder CreateDesktop -bool false && killall Finder
+}
+apple_do_not_disturb(){
+    currentDNDStatus=2
+    dnd=$(plutil -convert xml1 -o - /Users/anton/Library/Preferences/ByHost/com.apple.notificationcenterui.*.plist | grep -A1 '<key>doNotDisturb</key>' | tr -d '[[:space:]]')
+    if [ "$dnd" = "<key>doNotDisturb</key><true/>" ];then
+        currentDNDStatus=1 #dnd is on
+    elif [ "$dnd" = "<key>doNotDisturb</key><false/>" ] || ! [[ "$dnd" == *"doNotDisturb"* ]] ;then
+        currentDNDStatus=0 #dnd is off
+    else
+        return 1 #dnd status is unknown
+    fi;
+    if ([ "$1" -eq 1 ] && [ $currentDNDStatus -eq 0 ]) ||
+       ([ "$1" -eq 0 ] && [ $currentDNDStatus -eq 1 ]);then
+        # Toggle DND status
+        # by clicking on Nofitication center menu with Option key pressed
+        # notice the icon get greyed out when DND is on
+        osascript <<APPLE_SCRIPT
+          tell application "System Events" to tell process "SystemUIServer"
+            key down option
+            click menu bar item 1 of menu bar 2
+            key up option
+          end tell
+APPLE_SCRIPT
+    fi;
+}
+
+
+if [ $mode -eq 1 ];then
+    silent_exec_with_title "Hiding desktop icons" desktophide
+    silent_exec_with_title "Set Apple's Do Not Disturb" 'apple_do_not_disturb 1'
+else
+    silent_exec_with_title "Revealing desktop icons" desktopshow
+    silent_exec_with_title "Unset Apple's Do Not Disturb" 'apple_do_not_disturb 0'
+fi;
+
