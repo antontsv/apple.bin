@@ -1,0 +1,33 @@
+#!/usr/bin/env awesome-bash
+
+awesome_shell_help <<_HELP_
+Usage: $awesome_shell_script_name [-w|--wifi]
+
+    Launches Apple's Network Diagnostics.app
+
+options:
+    -w launch wifi diagnostics
+
+_HELP_
+
+#awesome-shell ref:48a471681i02
+
+wifi=0
+while [[ $# -gt 0 ]]
+do
+    opt="$1"
+    shift
+
+    case $opt in
+        -w|--wifi)
+        wifi=1
+        ;;
+    esac
+done;
+
+if [ $wifi -eq 1 ];then
+    silent_exec_with_title "Launching Wifi Diagnostics app" "open /System/Library/CoreServices/Applications/Wireless\ Diagnostics.app"
+else
+    silent_exec_with_title "Launching Network Diagnostics app" "open /System/Library/CoreServices/Network\ Diagnostics.app"
+fi;
+
