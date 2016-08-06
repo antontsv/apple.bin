@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+_basic_help_completion(){
+    local cur opts base
+    cur="${COMP_WORDS[COMP_CWORD]}"
+
+    opts="-h --help"
+    COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+    return 0
+}
+
+complete -F _basic_help_completion create-icns mail-mark-as-read
+
+_ndiag_completion(){
+    local cur opts base
+    cur="${COMP_WORDS[COMP_CWORD]}"
+
+    opts="--wifi --help -h"
+    COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+    return 0
+}
+
+complete -F _ndiag_completion ndiag
+
+_presenting_config_completion(){
+    local cur opts base
+    cur="${COMP_WORDS[COMP_CWORD]}"
+
+    opts="-h --help --on --off"
+    COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+    return 0
+}
+
+complete -F _presenting_config_completion presenting
