@@ -8,6 +8,7 @@ awesome_shell_help <<_HELP_
 
        Use large input image, bigger than 1024x1024
 _HELP_
+#awesome-shell ref:48a471681i02
 
 required_utility convert
 required_utility identify
@@ -104,3 +105,4 @@ if [ -r "$expected_icon_file" ];then
 else
     fatal "No icns file created"
 fi;
+
