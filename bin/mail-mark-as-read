@@ -5,7 +5,7 @@ Usage: $awesome_shell_script_name
 
     Marks the last unread mail in Apple's Mail.app as read
 _HELP_
-#awesome-shell ref:48a471681i02
+#awesome-shell ref:48a471681
 
 required_utility osascript
 

@@ -10,7 +10,7 @@ options:
 
 _HELP_
 
-#awesome-shell ref:48a471681i02
+#awesome-shell ref:48a471681
 
 wifi=0
 while [[ $# -gt 0 ]]
