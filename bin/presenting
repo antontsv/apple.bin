@@ -65,6 +65,10 @@ apple_quit_finder(){
     osascript -e 'tell application "Finder" to quit'
 }
 
+apple_start_finder(){
+    open -a "Finder"
+}
+
 
 if [ $mode -eq 1 ];then
     silent_exec_with_title "Hiding desktop icons" desktophide
@@ -80,6 +84,7 @@ APPLE_SCRIPT
     verbose_exit_code
     silent_exec_with_title "Quit finder" apple_quit_finder
 else
+    silent_exec_with_title "Starting finder" apple_start_finder
     silent_exec_with_title "Revealing desktop icons" desktopshow
     silent_exec_with_title "Unset Apple's Do Not Disturb" 'apple_do_not_disturb 0'
 fi;
