@@ -8,7 +8,8 @@ Usage: $awesome_shell_script_name
 
 _HELP_
 
-#awesome-shell ref:48a471681
+#awesome-shell ref:a41195b
+
 
 # presenting is on by default
 mode=1
@@ -27,6 +28,7 @@ do
     esac
 done;
 
+msg_min_len 50
 
 desktopshow(){
     defaults write com.apple.finder CreateDesktop -bool true && killall Finder
@@ -59,10 +61,24 @@ APPLE_SCRIPT
     fi;
 }
 
+apple_quit_finder(){
+    osascript -e 'tell application "Finder" to quit'
+}
+
 
 if [ $mode -eq 1 ];then
     silent_exec_with_title "Hiding desktop icons" desktophide
     silent_exec_with_title "Set Apple's Do Not Disturb" 'apple_do_not_disturb 1'
+    msg_inline "Invoke keystroke to hide windows..."
+    # Command + Option + H + M to hide windows
+    osascript <<APPLE_SCRIPT
+        tell application "System Events"
+            keystroke "h" using {command down, option down}
+            keystroke "m" using {command down, option down}
+        end tell
+APPLE_SCRIPT
+    verbose_exit_code
+    silent_exec_with_title "Quit finder" apple_quit_finder
 else
     silent_exec_with_title "Revealing desktop icons" desktopshow
     silent_exec_with_title "Unset Apple's Do Not Disturb" 'apple_do_not_disturb 0'
