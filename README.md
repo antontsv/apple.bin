@@ -13,3 +13,8 @@ There scripts are designed for Mac OS only
 Completion rules can be found in `.sh` directory,
 if you use one-time [homeshick-based setup](https://git.io/all.files),
 completion rules will be installed and kept up-to-date automatically
+
+# Notable scripts
+
+`setup-osx` applies settings from .misc directory to your OSX,
+usefull for the first-time setup 
