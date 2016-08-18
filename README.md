@@ -18,6 +18,7 @@ completion rules will be installed and kept up-to-date automatically
 
 `setup-osx` applies settings from .misc directory to your OSX,
 useful for the first-time setup 
+
 `presenting` to prepare MAC for presenting mode:
-hides desktop icons, invoked Apple's Do not disturb to silence notifications
+hides desktop icons, invokes Apple's Do not disturb to silence notifications
 from chats, etc  [requires Accessibility feature enabled for terminal]
