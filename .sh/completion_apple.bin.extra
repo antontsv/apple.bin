@@ -10,6 +10,7 @@ _basic_help_completion(){
 }
 
 complete -F _basic_help_completion create-icns mail-mark-as-read
+complete -F _basic_help_completion setup-osx
 
 _ndiag_completion(){
     local cur opts base

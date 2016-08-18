@@ -1,0 +1,53 @@
+#!/usr/bin/env awesome-bash
+
+awesome_shell_help <<_HELP_
+Usage: $awesome_shell_script_name
+
+    Runs various scripts and applies some settings
+    to setup your OS X
+
+_HELP_
+
+#awesome-shell ref:a41195b
+
+msg_min_len 50
+settings_file="$HOME/.misc/apple_osx_settings"
+
+if silent_exec_with_title "Check if settings file available..." [ -f "$settings_file" ] ; then
+    msg "It may take some time to apply all the settings, and we need sudo"
+    awesome_shell_include password
+    keep_sudo_alive
+    silent_exec_with_title "Applying settings..." bash "$settings_file"
+else
+    fatal "Cannot find OSX settings: $settings_file"
+fi
+
+theme_dir="$HOME/.misc/terminal"
+default_theme_name="Solarized Dark"
+needs_restart=0
+current_theme_name=$(defaults read com.apple.Terminal "Default Window Settings")
+
+if silent_exec_with_title "Check for terminal theme directory..." [ -d "$theme_dir" ];then
+    themes=$(find "$theme_dir" -name '*.terminal')
+    if [ $? -eq 0 ];then
+        while read -r theme; do
+            theme_filename=${theme##*/} # still with .terminal suffix
+            theme_name=${theme_filename:0:-9}
+            if ! silent_exec_with_title "Is $theme_name installed..." \
+                "defaults read com.apple.Terminal 'Window Settings' | grep 'name = \"$theme_name\"'";then
+                silent_exec_with_title "Installing $theme_name" "open \"$theme\"" && needs_restart=1
+            fi;
+            if [ $? -eq 0 ] && [ "$default_theme_name" = "$theme_name" ] &&
+                [ "$default_theme_name" != "$current_theme_name" ];then
+                msg_inline "Setting up $theme_name as default theme..."
+                defaults write com.apple.Terminal "Default Window Settings" -string "$theme_name" &&
+                defaults write com.apple.Terminal "Startup Window Settings" -string "$theme_name"
+                verbose_exit_code && needs_restart=1
+            fi;
+        done <<< "$(echo -e "$themes")"
+    fi;
+fi;
+
+[ $needs_restart -eq 1 ] && msg "Pending Terminal app restart to apply new settings" &&
+   pause_with_delay_in_seconds 5 && killall Terminal
+
