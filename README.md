@@ -16,9 +16,9 @@ completion rules will be installed and kept up-to-date automatically
 
 # Notable scripts
 
-`setup-osx` applies settings from .misc directory to your OSX,
+[setup-osx](https://github.com/antontsv/apple.bin/blob/master/bin/setup-osx) applies settings from .misc directory to your OSX,
 useful for the first-time setup 
 
-`presenting` to prepare MAC for presenting mode:
+[presenting](https://github.com/antontsv/apple.bin/blob/master/bin/presenting) to prepare MAC for presenting mode:
 hides desktop icons, invokes Apple's Do not disturb to silence notifications
 from chats, etc  [requires Accessibility feature enabled for terminal]
