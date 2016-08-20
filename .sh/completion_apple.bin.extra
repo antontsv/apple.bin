@@ -33,3 +33,15 @@ _presenting_config_completion(){
 }
 
 complete -F _presenting_config_completion presenting
+
+_bluetooth_completion(){
+    local cur opts base
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    opts=" start stop restart"
+    if [ "${cur:0:1}" = "-" ]; then
+        opts="$opts -h --help"
+    fi;
+    COMPREPLY=($(compgen -W "${opts:1}" -- ${cur}))
+    return 0
+}
+complete -F _bluetooth_completion bluetoothctrl

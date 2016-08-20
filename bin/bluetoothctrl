@@ -1,0 +1,35 @@
+#!/usr/bin/env awesome-bash
+
+awesome_shell_help <<_HELP_
+Start, stop & restart bluetooth on Mac OS X
+
+Usage: $awesome_shell_script_name action [-h|--help]
+
+action is one of start, stop or restart
+
+Options:
+    -h, --help this help
+
+_HELP_
+#awesome-shell ref:a41195b
+
+awesome_shell_include password
+
+# default is restart: stop & start
+do_start=1
+do_stop=1
+
+case "$1" in
+    stop)
+        do_start=0
+    ;;
+    start)
+        do_stop=0
+    ;;
+esac
+
+keep_sudo_alive
+msg_min_len 40
+[ "$do_stop" -eq 1 ] && silent_exec_with_title 'Disable Bluetooth' 'sudo kextunload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport'
+[ "$do_start" -eq 1 ] && silent_exec_with_title 'Enable Bluetooth' 'sudo kextload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport'
+killall SystemUIServer
