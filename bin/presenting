@@ -38,7 +38,7 @@ desktophide(){
 }
 apple_do_not_disturb(){
     currentDNDStatus=2
-    dnd=$(plutil -convert xml1 -o - /Users/anton/Library/Preferences/ByHost/com.apple.notificationcenterui.*.plist | grep -A1 '<key>doNotDisturb</key>' | tr -d '[[:space:]]')
+    dnd=$(plutil -convert xml1 -o - "$HOME/Library/Preferences/ByHost/com.apple.notificationcenterui.*.plist" | grep -A1 '<key>doNotDisturb</key>' | tr -d '[[:space:]]')
     if [ "$dnd" = "<key>doNotDisturb</key><true/>" ];then
         currentDNDStatus=1 #dnd is on
     elif [ "$dnd" = "<key>doNotDisturb</key><false/>" ] || ! [[ "$dnd" == *"doNotDisturb"* ]] ;then
