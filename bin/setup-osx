@@ -8,9 +8,8 @@ Usage: $awesome_shell_script_name
 
 _HELP_
 
-#awesome-shell ref:a41195b
+#awesome-shell ref:c2d26a4
 
-msg_min_len 50
 settings_file="$HOME/.misc/apple_osx_settings"
 
 if silent_exec_with_title "Check if settings file available..." [ -f "$settings_file" ] ; then

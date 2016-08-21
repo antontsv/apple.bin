@@ -11,7 +11,7 @@ Options:
     -h, --help this help
 
 _HELP_
-#awesome-shell ref:a41195b
+#awesome-shell ref:c2d26a4
 
 awesome_shell_include password
 
@@ -29,7 +29,6 @@ case "$1" in
 esac
 
 keep_sudo_alive
-msg_min_len 40
 [ "$do_stop" -eq 1 ] && silent_exec_with_title 'Disable Bluetooth' 'sudo kextunload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport'
 [ "$do_start" -eq 1 ] && silent_exec_with_title 'Enable Bluetooth' 'sudo kextload -b com.apple.iokit.BroadcomBluetoothHostControllerUSBTransport'
 killall SystemUIServer

@@ -8,7 +8,7 @@ Usage: $awesome_shell_script_name
 
 _HELP_
 
-#awesome-shell ref:a41195b
+#awesome-shell ref:c2d26a4
 
 
 # presenting is on by default
@@ -27,8 +27,6 @@ do
         ;;
     esac
 done;
-
-msg_min_len 50
 
 desktopshow(){
     defaults write com.apple.finder CreateDesktop -bool true && killall Finder
