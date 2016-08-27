@@ -1,0 +1,76 @@
+#!/usr/bin/env awesome-bash
+
+awesome_shell_help <<_HELP_
+Encrypt the message using GPG.
+Message to be sent by email.
+
+Usage: $awesome_shell_script_name -r recepient@gmail.com [-f text_file] [-s subject]
+
+Options:
+    -h, --help this help
+    -r, --recepient recepient for the message, can be used multiple times
+    -s, --subject subject line for email
+    -f, --file read the message from the specified file
+
+_HELP_
+#awesome-shell ref:33882ef
+
+required_utility gpg
+
+recepients=""
+subject="Encrypted message"
+file=""
+rec=""
+
+function isValidEmail {
+    local email="$1"
+    local regex="^[a-z0-9!#%&+=^_~-]+(\.[a-z0-9!#%&+=^_~-]+)*@([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]([a-z0-9-]*[a-z0-9])?\$"
+
+    [[ $email =~ $regex ]] && return 0
+    return 1
+}
+
+while [[ $# -gt 0 ]]
+do
+    opt="$1"
+    shift
+
+    case $opt in
+        -r|--recepient)
+        [ -z "$1" ] && fatal "$opt requires a value"
+        ! isValidEmail "$1" && fatal "$1 is unacceptable value for $opt"
+        recepients="$recepients -r $1"
+        if [ -z "$rec" ];then
+            rec="$1"
+        else
+            rec="$rec,$1"
+        fi;
+        shift
+        ;;
+        -s|--subject)
+        [ -z "$1" ] && fatal "$opt requires a value"
+        subject="$1"
+        shift
+        ;;
+        -f|--file)
+        [ -z "$1" ] && fatal "$opt requires a value"
+        [ ! -f "$1" ] && fatal "$opt requires a valid file"
+        file="$1"
+        shift
+        ;;
+    esac
+done;
+
+if [ -n "$file" ];then
+    enc_message=$(eval "cat '$file' | gpg $recepients -e -n -a")
+elif [ ! -t 0 ];then
+    enc_message=$(eval "gpg $recepients -e -n -a < /dev/fd/0")
+else
+    fatal "Please provide file to encrypt or supply a message via stdin"
+fi;
+fatal_if_any_error "Unable to create GPG-encrypted message"
+
+final_subject="$subject [DO NOT FORWARD]"
+msg_inline "Firing mailto: to open mail app..."
+open "mailto:$rec?Subject=$final_subject&Body=$enc_message"
+verbose_exit_code

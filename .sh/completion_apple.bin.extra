@@ -45,3 +45,29 @@ _bluetooth_completion(){
     return 0
 }
 complete -F _bluetooth_completion bluetoothctrl
+
+_gpg_mail_completion(){
+    local cur prev;
+    COMPREPLY=();
+    _get_comp_words_by_ref cur prev;
+    case $prev in
+        -s|--subject|-h|--help)
+            return 0
+        ;;
+        -f|--file)
+            [ "x$(type -t _filedir_xspec)" = "xfunction" ] && _filedir_xspec
+            return 0
+        ;;
+        -r|--recipient)
+            COMPREPLY=($( compgen -W "$( gpg --list-keys 2>/dev/null | sed -ne 's@^.*<\([^>]*\)>.*$@\1@p')" -- "$cur" ));
+            if [ -e ~/.gnupg/gpg.conf ]; then
+                COMPREPLY=("${COMPREPLY[@]}" $( compgen -W "$( sed -ne 's@^[ \t]*group[ \t][ \t]*\([^=]*\).*$@\1@p' ~/.gnupg/gpg.conf  )" -- "$cur"));
+            fi;
+            return 0
+        ;;
+    esac;
+    opts="-h --help -r --recepient -s --subject -f --file"
+    COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+    return 0
+}
+complete -F _gpg_mail_completion gpg-mail
