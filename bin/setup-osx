@@ -8,7 +8,7 @@ Usage: $awesome_shell_script_name
 
 _HELP_
 
-#awesome-shell ref:c2d26a4
+#awesome-shell ref:f229e3f
 
 settings_file="$HOME/.misc/apple_osx_settings"
 
@@ -20,6 +20,24 @@ if silent_exec_with_title "Check if settings file available..." [ -f "$settings_
 else
     fatal "Cannot find OSX settings: $settings_file"
 fi
+
+awesome_shell_include system
+if ! has_command 'brew';then
+    function install_brew() {
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    }
+    silent_exec_with_title 'Installing Homebrew' install_brew
+fi;
+
+function brew_cask_is_installed(){
+    brew cask list "$1" >/dev/null 2>&1
+    return $?
+}
+
+if ! brew_cask_is_installed 'hammerspoon';then
+    msg 'Installing Hammerspoon...'
+    verbose_exec 'brew cask install hammerspoon'
+fi;
 
 theme_dir="$HOME/.misc/terminal"
 default_theme_name="Solarized Dark"
