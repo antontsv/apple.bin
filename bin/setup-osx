@@ -12,7 +12,7 @@ _HELP_
 
 settings_file="$HOME/.misc/apple_osx_settings"
 
-if silent_exec_with_title "Check if settings file available..." [ -f "$settings_file" ] ; then
+if silent_exec_with_title "Check if settings file is available..." [ -f "$settings_file" ] ; then
     msg "It may take some time to apply all the settings, and we need sudo"
     awesome_shell_include password
     keep_sudo_alive
