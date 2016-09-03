@@ -59,7 +59,7 @@ hs.pathwatcher.new(os.getenv("HOME") .. "/.homesick/repos/apple.bin/.hammerspoon
 -- Windows
 -- Toggle a window regular frame and maximized on the screen
 local savedFrameSizes = {}
-function toggle_maximize()
+function toggleMaximize()
     local win = hs.window.focusedWindow()
     if savedFrameSizes[win:id()] then
         win:setFrame(savedFrameSizes[win:id()])
@@ -71,7 +71,34 @@ function toggle_maximize()
 end
 -- Control + Option + Command + F to maximize (different from full screen)
 -- Note: Mac's Control + Command + F triggers app full-screen mode
-hs.hotkey.bind(cod, 'f', toggle_maximize)
+hs.hotkey.bind(cod, 'f', toggleMaximize)
+
+
+-- Do some actions upon screen lock/unlock (including screen saver with password)
+local caffeineUnmute=false
+local caffeineItunesPlayPause=false
+function caffeinateCallback(eventType)
+    if (eventType == hs.caffeinate.watcher.screensDidLock) then
+        caffeineItunesPlayPause = hs.itunes.isPlaying()
+        if caffeineItunesPlayPause then
+            hs.itunes.playpause() -- pause playing
+        end
+        local audioOutput = hs.audiodevice.defaultOutputDevice()
+        caffeineUnmute = not audioOutput:muted()
+        audioOutput:setMuted(true)
+    elseif (eventType == hs.caffeinate.watcher.screensDidUnlock) then
+        if caffeineUnmute then
+            hs.audiodevice.defaultOutputDevice():setMuted(false)
+        end
+        if caffeineItunesPlayPause then
+            hs.itunes.playpause() -- resume playing
+        end
+    end
+end
+
+caffeinateWatcher = hs.caffeinate.watcher.new(caffeinateCallback)
+caffeinateWatcher:start()
+
 
 
 -- display alert when config is loaded
