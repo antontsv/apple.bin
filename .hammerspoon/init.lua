@@ -86,6 +86,8 @@ function caffeinateCallback(eventType)
         local audioOutput = hs.audiodevice.defaultOutputDevice()
         caffeineUnmute = not audioOutput:muted()
         audioOutput:setMuted(true)
+        -- remove all keys from ssh-agent
+        hs.task.new("/usr/bin/ssh-add", function() end, function() return false end, {"-D"}):start()
     elseif (eventType == hs.caffeinate.watcher.screensDidUnlock) then
         if caffeineUnmute then
             hs.audiodevice.defaultOutputDevice():setMuted(false)
