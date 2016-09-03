@@ -10,14 +10,10 @@ hs.redshift.start(2800,'21:00','7:00','1h')
 
 function reloadPlusAlert()
     hs.reload()
-    hs.alert.show("Hammerspoon config has been reloaded")
 end
 
 --config reloading. manual (from getting started guide):
-hs.hotkey.bind(cod, "R", function()
-    reloadPlusAlert()
-end)
-
+hs.hotkey.bind(cod, "R", reloadPlusAlert)
 
 -- menu icon to access Mac's caffeine functions
 local caffeine = hs.menubar.new()
@@ -76,3 +72,7 @@ end
 -- Control + Option + Command + F to maximize (different from full screen)
 -- Note: Mac's Control + Command + F triggers app full-screen mode
 hs.hotkey.bind(cod, 'f', toggle_maximize)
+
+
+-- display alert when config is loaded
+hs.alert.show("Hammerspoon config - OK", 1)
