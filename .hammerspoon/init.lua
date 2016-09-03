@@ -57,6 +57,7 @@ function reloadConfig(files)
     end
 end
 hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
+hs.pathwatcher.new(os.getenv("HOME") .. "/.homesick/repos/apple.bin/.hammerspoon/", reloadConfig):start()
 
 
 -- Windows
