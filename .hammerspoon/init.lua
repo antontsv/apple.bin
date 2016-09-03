@@ -8,12 +8,12 @@ local cod = {"ctrl","alt","cmd"}
 -- and back to standard 6:30->7:30
 hs.redshift.start(2800,'21:00','7:00','1h')
 
-function reloadPlusAlert()
+function triggerReload()
     hs.reload()
 end
 
 --config reloading. manual (from getting started guide):
-hs.hotkey.bind(cod, "R", reloadPlusAlert)
+hs.hotkey.bind(cod, "R", triggerReload)
 
 -- menu icon to access Mac's caffeine functions
 local caffeine = hs.menubar.new()
@@ -49,7 +49,7 @@ function reloadConfig(files)
         end
     end
     if doReload then
-        reloadPlusAlert()
+        triggerReload()
     end
 end
 hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
