@@ -101,7 +101,13 @@ end
 caffeinateWatcher = hs.caffeinate.watcher.new(caffeinateCallback)
 caffeinateWatcher:start()
 
-
+-- Simple short-cut to display alerts:
+-- open -g 'hammerspoon://show_alert?text=Nice one!'
+hs.urlevent.bind("show_alert", function(eventName, params)
+  if params["text"] then
+    hs.alert.show(params["text"])
+  end
+end)
 
 -- display alert when config is loaded
 hs.alert.show("Hammerspoon config - OK", 1)
