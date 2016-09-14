@@ -17,3 +17,9 @@ dash() {
   fi;
   open "dash://$QUERY"
 }
+
+alert() {
+  _help_including_empty "$@" <<< "Usage: alert 'some text'
+    Will call hammerspoon to display on-screen alert" || return 1;
+  open -g "hammerspoon://show_alert?text=$*"
+}
