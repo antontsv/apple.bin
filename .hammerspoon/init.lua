@@ -109,5 +109,10 @@ hs.urlevent.bind("show_alert", function(eventName, params)
   end
 end)
 
+-- Simulate keystrokes on the field where paste is disabled
+hs.hotkey.bind(cod, 'v', function()
+  hs.eventtap.keyStrokes(hs.pasteboard.getContents())
+end)
+
 -- display alert when config is loaded
 hs.alert.show("Hammerspoon config - OK", 1)
