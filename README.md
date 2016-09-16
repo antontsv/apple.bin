@@ -17,7 +17,7 @@ completion rules will be installed and kept up-to-date automatically
 # Notable scripts
 
 [setup-osx](https://github.com/antontsv/apple.bin/blob/master/bin/setup-osx) applies settings from .misc directory to your OSX,
-useful for the first-time setup 
+useful for the first-time setup and also installs[hammerspoon](http://www.hammerspoon.org)
 
 [presenting](https://github.com/antontsv/apple.bin/blob/master/bin/presenting) to prepare MAC for presenting mode:
 hides desktop icons, invokes Apple's Do not disturb to silence notifications
