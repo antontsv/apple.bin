@@ -36,7 +36,7 @@ end
 if caffeine then
     caffeine:setClickCallback(caffeineClicked)
     -- enable caffeine and prevent sleep by default
-    hs.caffeinate.set('displayIdle', true, true)
+    hs.caffeinate.set("displayIdle", true, true)
     setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
 end
 
@@ -71,7 +71,7 @@ function toggleMaximize()
 end
 -- Control + Option + Command + F to maximize (different from full screen)
 -- Note: Mac's Control + Command + F triggers app full-screen mode
-hs.hotkey.bind(cod, 'f', toggleMaximize)
+hs.hotkey.bind(cod, "f", toggleMaximize)
 
 
 -- Do some actions upon screen lock/unlock (including screen saver with password)
@@ -110,7 +110,7 @@ hs.urlevent.bind("show_alert", function(eventName, params)
 end)
 
 -- Simulate keystrokes on the field where paste is disabled
-hs.hotkey.bind(cod, 'v', function()
+hs.hotkey.bind(cod, "v", function()
   hs.eventtap.keyStrokes(hs.pasteboard.getContents())
 end)
 
