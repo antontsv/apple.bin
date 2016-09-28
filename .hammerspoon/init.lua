@@ -140,5 +140,32 @@ hs.hotkey.bind(cod, "Right", function()
   win:setFrame(f)
 end)
 
+hs.hotkey.bind(cod, "Up", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.x = max.x
+  f.y = max.y
+  f.w = max.w
+  f.h = max.h /2 
+  win:setFrame(f)
+end)
+
+
+hs.hotkey.bind(cod, "Down", function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.x = max.x
+  f.y = max.y + (max.h / 2)
+  f.w = max.w
+  f.h = max.h /2
+  win:setFrame(f)
+end)
+
 -- display alert when config is loaded
 hs.alert.show("Hammerspoon config - OK", 1)
