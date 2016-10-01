@@ -1,4 +1,5 @@
 require "modules.autoloader"
+require "modules.caffeinator"
 
 Autoloader()
 
@@ -11,30 +12,9 @@ local cod = {"ctrl","alt","cmd"}
 -- and back to standard 6:30->7:30
 hs.redshift.start(2800,'21:00','7:00','1h')
 
--- menu icon to access Mac's caffeine functions
-local caffeine = hs.menubar.new()
-
-function setCaffeineDisplay(state)
-    local result
-    if state then
-        result = caffeine:setIcon("assets/stay-awake.pdf")
-        caffeine:setTooltip("Caffeine is on - Mac won't sleep")
-    else
-        result = caffeine:setIcon("assets/can-sleep.pdf")
-        caffeine:setTooltip("Caffeine is off - Mac is allowed to sleep")
-    end
-end
-
-function caffeineClicked()
-    setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
-end
-
-if caffeine then
-    caffeine:setClickCallback(caffeineClicked)
-    -- enable caffeine and prevent sleep by default
-    hs.caffeinate.set("displayIdle", true, true)
-    setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
-end
+-- prevent Mac from sleeping,
+-- it should also create Moon-like menu icon
+Caffeinator()
 
 -- Windows
 -- Toggle a window regular frame and maximized on the screen
