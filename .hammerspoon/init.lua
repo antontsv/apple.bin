@@ -1,7 +1,17 @@
 require "modules.autoloader"
 require "modules.caffeinator"
+require "modules.screenLockWatcher"
 
+-- watches Lua files, provides short-cuts to reload Hammerspoon config
 Autoloader()
+
+-- prevent Mac from sleeping,
+-- it should also create Moon-like menu icon
+Caffeinator()
+
+-- performs actions upon screen lock:
+-- mute audio, remove identities from SSH-agent, etc.
+ScreenLockWatcher()
 
 -- shift (⇧ ); control/crtl (⌃); option/alt (⌥ ); command/cmd (⌘ )
 local scod = {"shift","ctrl","alt","cmd"}
@@ -11,10 +21,6 @@ local cod = {"ctrl","alt","cmd"}
 -- redshift to 2800K from 20:30->21:30
 -- and back to standard 6:30->7:30
 hs.redshift.start(2800,'21:00','7:00','1h')
-
--- prevent Mac from sleeping,
--- it should also create Moon-like menu icon
-Caffeinator()
 
 -- Windows
 -- Toggle a window regular frame and maximized on the screen
@@ -33,33 +39,6 @@ end
 -- Note: Mac's Control + Command + F triggers app full-screen mode
 hs.hotkey.bind(cod, "f", toggleMaximize)
 
-
--- Do some actions upon screen lock/unlock (including screen saver with password)
-local caffeineUnmute=false
-local caffeineItunesPlayPause=false
-function caffeinateCallback(eventType)
-    if (eventType == hs.caffeinate.watcher.screensDidLock) then
-        caffeineItunesPlayPause = hs.itunes.isPlaying()
-        if caffeineItunesPlayPause then
-            hs.itunes.playpause() -- pause playing
-        end
-        local audioOutput = hs.audiodevice.defaultOutputDevice()
-        caffeineUnmute = not audioOutput:muted()
-        audioOutput:setMuted(true)
-        -- remove all keys from ssh-agent
-        hs.task.new("/usr/bin/ssh-add", function() end, function() return false end, {"-D"}):start()
-    elseif (eventType == hs.caffeinate.watcher.screensDidUnlock) then
-        if caffeineUnmute then
-            hs.audiodevice.defaultOutputDevice():setMuted(false)
-        end
-        if caffeineItunesPlayPause then
-            hs.itunes.playpause() -- resume playing
-        end
-    end
-end
-
-caffeinateWatcher = hs.caffeinate.watcher.new(caffeinateCallback)
-caffeinateWatcher:start()
 
 -- Simple short-cut to display alerts:
 -- open -g 'hammerspoon://show_alert?text=Nice one!'
