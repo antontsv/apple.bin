@@ -104,6 +104,11 @@ function WindowController()
       f.h = max.h / 2
       win:setFrame(f)
     end)
+    
+    -- Simulate keystrokes on the field where paste is disabled
+    hs.hotkey.bind(CTRL_OPT_CMD, "v", function()
+      hs.eventtap.keyStrokes(hs.pasteboard.getContents())
+    end)
 
     return self
 end
