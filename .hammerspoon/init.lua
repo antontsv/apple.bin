@@ -1,8 +1,10 @@
 require "modules.autoloader"
 require "modules.caffeinator"
 require "modules.screenLockWatcher"
+require "modules.windowController"
 
--- watches Lua files, provides short-cuts to reload Hammerspoon config
+-- watches Lua files
+-- provides short-cuts to reload Hammerspoon config
 Autoloader()
 
 -- prevent Mac from sleeping,
@@ -13,6 +15,10 @@ Caffeinator()
 -- mute audio, remove identities from SSH-agent, etc.
 ScreenLockWatcher()
 
+-- Controls focused window size and movement
+-- though several keyboard combinations
+WindowController()
+
 -- shift (⇧ ); control/crtl (⌃); option/alt (⌥ ); command/cmd (⌘ )
 local scod = {"shift","ctrl","alt","cmd"}
 local cd = {"ctrl","cmd"}
@@ -22,22 +28,6 @@ local cod = {"ctrl","alt","cmd"}
 -- and back to standard 6:30->7:30
 hs.redshift.start(2800,'21:00','7:00','1h')
 
--- Windows
--- Toggle a window regular frame and maximized on the screen
-local savedFrameSizes = {}
-function toggleMaximize()
-    local win = hs.window.focusedWindow()
-    if savedFrameSizes[win:id()] then
-        win:setFrame(savedFrameSizes[win:id()])
-        savedFrameSizes[win:id()] = nil
-    else
-        savedFrameSizes[win:id()] = win:frame()
-        win:maximize()
-    end
-end
--- Control + Option + Command + F to maximize (different from full screen)
--- Note: Mac's Control + Command + F triggers app full-screen mode
-hs.hotkey.bind(cod, "f", toggleMaximize)
 
 
 -- Simple short-cut to display alerts:
