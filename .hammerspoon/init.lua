@@ -1,4 +1,4 @@
-require "modules.autoloader"
+require 'modules.autoloader'
 
 -- watches Lua files
 -- provides short-cuts to reload Hammerspoon config
