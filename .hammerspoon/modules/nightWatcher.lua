@@ -1,12 +1,11 @@
-function NightWatcher (
-    nightDisplayTemperature,
-    nightStart,
-    nightEnd
-)
+function NightWatcher (params)
+
+    if params == nil then params = {} end
+
     local self = {
-        nightDisplayTemperature = nightDisplayTemperature or 2800,
-        nightStart = nightStart or '21:00',
-        nightEnd = nightEnd or '7:00'
+        nightDisplayTemperature = params.nightDisplayTemperature or 2800,
+        nightStart = params.nightStart or '21:00',
+        nightEnd = params.nightEnd or '7:00'
     }
 
     -- redshift for default values:

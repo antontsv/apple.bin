@@ -1,8 +1,20 @@
 function Autoloader()
     local self={}
 
+    local config_dir = os.getenv('HOME') .. '/.homesick/repos/apple.bin/.hammerspoon/'
+
     function self.reload()
         hs.reload()
+    end
+
+    function self.addWatcher(file_path)
+        hs.pathwatcher.new(config_dir .. file_path, self.reloadConfig):start()
+    end
+
+    function self.loadModule(name, params)
+       require ('modules.' .. name)
+       self.addWatcher('modules/' .. name .. '.lua')
+       return _G[(name:gsub('^%l', string.upper))](params)
     end
 
     -- watch & reload config automatically if changed
@@ -17,10 +29,9 @@ function Autoloader()
             self.reload()
         end
     end
-    hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", self.reloadConfig):start()
-    hs.pathwatcher.new(os.getenv("HOME") .. "/.homesick/repos/apple.bin/.hammerspoon/", self.reloadConfig):start()
 
     hs.hotkey.bind({"ctrl","alt","cmd"}, "R", self.reload)
+    self.addWatcher('init.lua')
 
     return self
 end
