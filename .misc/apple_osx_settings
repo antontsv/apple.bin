@@ -453,6 +453,9 @@ sudo mdutil -E / > /dev/null
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
 
+# Remove annoyning bracket-mark on the left side
+defaults write com.apple.terminal AutoMarkPromptLines -int 0
+
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
