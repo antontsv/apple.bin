@@ -137,6 +137,10 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
+# Set fast keyboard repeat rate
+defaults write NSGlobalDomain KeyRepeat -int 4
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
 #############################################
 #  > System Preferences... > Accessibility #
 #############################################
