@@ -1,0 +1,6 @@
+brew 'git'
+brew 'bash'
+brew 'tmux'
+brew 'imagemagick'
+brew 'wget'
+brew 'the_silver_searcher'

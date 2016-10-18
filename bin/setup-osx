@@ -39,6 +39,16 @@ if ! brew_cask_is_installed 'hammerspoon';then
     verbose_exec 'brew cask install hammerspoon'
 fi;
 
+if [ -f "$HOME/.misc/Brewfile" ];then
+    msg 'Installing brew packages declared in Brewfile...'
+    verbose_exec "brew bundle --file=$HOME/.misc/Brewfile"
+fi;
+
+if [ -f "$HOME/.misc/Brewfile.extra" ];then
+    msg 'Installing brew packages declared in Brewfile.extra...'
+    verbose_exec "brew bundle --file=$HOME/.misc/Brewfile.extra"
+fi;
+
 fonts_dir="$HOME/.misc/poweline-fonts"
 
 if ! $(ls $HOME/Library/Fonts | grep -q Powerline 1>null 2>/dev/null); then
