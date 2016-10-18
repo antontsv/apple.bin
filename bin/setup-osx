@@ -39,6 +39,23 @@ if ! brew_cask_is_installed 'hammerspoon';then
     verbose_exec 'brew cask install hammerspoon'
 fi;
 
+fonts_dir="$HOME/.misc/poweline-fonts"
+
+if ! $(ls $HOME/Library/Fonts | grep -q Powerline 1>null 2>/dev/null); then
+    # known good revision
+    fonts_rev='a44abd0e742ad6e7fd8d8bc4c3cad5155c9f3a92'
+    download_cmd="curl -L -o $HOME/.misc/poweline-fonts.zip https://github.com/powerline/fonts/archive/$fonts_rev.zip"
+    silent_exec_with_title 'Downloading powerline fonts' "$download_cmd"
+    fatal_if_any_error 'Cannot download powerline fonts'
+    silent_exec_with_title 'Unzip fonts' "unzip -o -q $HOME/.misc/poweline-fonts.zip -d $HOME/.misc/poweline-fonts"
+    fatal_if_any_error 'Failed to unzip fonts'
+    msg 'Installing fonts...'
+    verbose_exec "$HOME/.misc/poweline-fonts/fonts-$fonts_rev/install.sh"
+    fatal_if_any_error 'Powerline font installer has failed'
+    rm -rf $HOME/.misc/poweline-fonts.zip $HOME/.misc/poweline-fonts
+fi;
+
+
 theme_dir="$HOME/.misc/terminal"
 default_theme_name="Solarized Dark"
 needs_restart=0
