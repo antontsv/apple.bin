@@ -5,3 +5,4 @@ brew 'imagemagick'
 brew 'wget'
 brew 'the_silver_searcher'
 brew 'ctags'
+brew 'reattach-to-user-namespace', args: ['with-wrap-pbcopy-and-pbpaste']
