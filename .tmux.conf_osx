@@ -1,2 +1,4 @@
 bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-buffer"
+# mouse drag selection will also automatically add it to Mac's pasteboard
+bind -Tcopy-mode-vi MouseDragEnd1Pane send -X copy-selection-and-cancel \; run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
