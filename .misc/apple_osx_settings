@@ -316,14 +316,17 @@ defaults write com.apple.dock autohide-delay -float 0
 # Remove the animation when hiding/showing the Dock
 defaults write com.apple.dock autohide-time-modifier -float 0
 
-# Don't auto hide the Dock
-defaults write com.apple.dock autohide -bool false
+# Do auto hide the Dock
+defaults write com.apple.dock autohide -bool true
 
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
 # Stop bouncing on notifications, badge icon indicator should be enough:
 defaults write com.apple.dock no-bouncing -bool true
+
+# Place dock on the left side (default is bottom)
+defaults write com.apple.dock orientation left
 
 # Add iOS & Watch Simulator to Launchpad
 sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
