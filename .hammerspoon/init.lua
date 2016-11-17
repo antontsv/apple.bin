@@ -24,7 +24,7 @@ autoloader.loadModule('windowController')
 autoloader.loadModule('nightWatcher',
     {
         nightDisplayTemperature = 2800,
-        nightStart = '21:00',
+        nightStart = '20:00',
         nightEnd = '7:00'
     }
 )
