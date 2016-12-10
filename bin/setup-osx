@@ -92,6 +92,8 @@ if silent_exec_with_title "Check for terminal theme directory..." [ -d "$theme_d
     fi;
 fi;
 
+has_command 'block-hosts' && verbose_exec block-hosts
+
 [ $needs_restart -eq 1 ] && msg "Pending Terminal app restart to apply new settings" &&
    pause_with_delay_in_seconds 5 && killall Terminal
 
