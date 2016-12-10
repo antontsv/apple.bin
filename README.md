@@ -16,7 +16,7 @@ completion rules will be installed and kept up-to-date automatically
 
 # Notable scripts
 
-* [setup-osx](https://github.com/antontsv/apple.bin/blob/master/bin/setup-osx) applies settings from .misc directory to your OSX,
+* [setup-macos](https://github.com/antontsv/apple.bin/blob/master/bin/setup-macos) applies settings from .misc directory to your MacOs,
 useful for the first-time setup and also installs [hammerspoon](http://www.hammerspoon.org)
 
 Hammerspoon's window shortcuts in action:

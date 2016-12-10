@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
 # Most of these settings are from Mathias Bynens dot files for Mac OS:
-# https://github.com/mathiasbynens/dotfiles/blob/master/.osx
+# https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
 # Back up what we have:
-backup_dir="$HOME/backup/osx_settings"
+backup_dir="$HOME/backup/macos_settings"
 mkdir -p "$backup_dir"
 date_label=$(date +"%Y-%m-%d_%H:%M:%S")
-defaults read > "$backup_dir/osx_defaults_$date_label"
+defaults read > "$backup_dir/macos_defaults_$date_label"
 
 # Ask for the administrator password upfront
 sudo -v
 
-# Keep-alive: update existing `sudo` time stamp until `.osx` has finished
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Menu bar: hide the Time Machine, Volume, and User icons
@@ -34,7 +34,7 @@ defaults write com.apple.systemuiserver menuExtras -array \
 # Apprearance
 
 # Graphite
-#defaults write NSGlobalDomain AppleAquaColorVariant -int 6 
+#defaults write NSGlobalDomain AppleAquaColorVariant -int 6
 # Blue [default]
 #defaults write NSGlobalDomain AppleAquaColorVariant -int 1
 
@@ -81,7 +81,7 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
 ################
-# Text system: #                                                                                                   
+# Text system: #
 ################
 # https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html
 
