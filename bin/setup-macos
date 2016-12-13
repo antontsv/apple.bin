@@ -4,13 +4,13 @@ awesome_shell_help <<_HELP_
 Usage: $awesome_shell_script_name
 
     Runs various scripts and applies some settings
-    to setup your OS X
+    to setup your Mac OS
 
 _HELP_
 
 #awesome-shell ref:f229e3f
 
-settings_file="$HOME/.misc/apple_osx_settings"
+settings_file="$HOME/.misc/macos_settings"
 
 if silent_exec_with_title "Check if settings file is available..." [ -f "$settings_file" ] ; then
     msg "It may take some time to apply all the settings, and we need sudo"
