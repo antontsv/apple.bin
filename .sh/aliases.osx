@@ -28,5 +28,8 @@ alias killdock="killall Dock"
 alias killmenubar="killall SystemUIServer NotificationCenter"
 alias killosx="killfinder && killdock && killmenubar"
 
-#open chrome
+# open chrome
 alias chrome="open -a Google\ Chrome"
+
+# crypto
+alias show_app_signature="codesign -dv --verbose=4"
