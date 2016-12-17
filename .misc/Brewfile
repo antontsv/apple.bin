@@ -9,3 +9,5 @@ brew 'reattach-to-user-namespace', args: ['with-wrap-pbcopy-and-pbpaste']
 
 cask 'iterm2'
 cask 'gimp'
+cask 'google-chrome'
+cask 'opera'
