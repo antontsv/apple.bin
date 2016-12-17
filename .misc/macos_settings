@@ -118,6 +118,9 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 # Disable smart dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
+# Show battery percentage
+defaults write com.apple.menuextra.battery ShowPercent -string YES
+
 #############################################
 # Input: trackpad, mouse...                 #
 #############################################
@@ -573,6 +576,14 @@ defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault
 # Expand the print dialog by default
 defaults write com.operasoftware.Opera PMPrintingExpandedStateForPrint2 -boolean true
 defaults write com.operasoftware.OperaDeveloper PMPrintingExpandedStateForPrint2 -boolean true
+
+###############################################################################
+# Hammerspoon App                                                             #
+###############################################################################
+# no icon in the Dock
+defaults write org.hammerspoon.Hammerspoon MJShowDockIconKey -int 0
+# show menu item
+defaults write org.hammerspoon.Hammerspoon MJShowMenuIconKey -int 1
 
 ###############################################################################
 # Kill affected applications                                                  #
