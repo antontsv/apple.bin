@@ -144,6 +144,25 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 defaults write NSGlobalDomain KeyRepeat -int 4
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
+
+#############################################
+# Touchbar / ControlStrip                   #
+#############################################
+defaults write "com.apple.controlstrip" FullCustomized -array \
+        "com.apple.system.group.brightness" \
+        "com.apple.system.mission-control" \
+        "com.apple.system.launchpad" \
+        "com.apple.system.group.keyboard-brightness" \
+        "com.apple.system.group.media" \
+        "com.apple.system.group.volume" \
+        "com.apple.system.input-menu"
+
+defaults write "com.apple.controlstrip" MiniCustomized -array \
+        "com.apple.system.brightness" \
+        "com.apple.system.volume" \
+        "com.apple.system.mute" \
+        "com.apple.system.screencapture"
+
 #############################################
 #  > System Preferences... > Accessibility #
 #############################################
@@ -599,7 +618,7 @@ defaults write org.hammerspoon.Hammerspoon MJShowMenuIconKey -int 1
 
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
     "Dock" "Finder" "Google Chrome" "Google Chrome Canary" "Mail" "Messages" \
-    "Opera" "Photos" "Safari" "SystemUIServer" "iCal"; do
+    "Opera" "Photos" "Safari" "SystemUIServer" "iCal" "ControlStrip"; do
     killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
