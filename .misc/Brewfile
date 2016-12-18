@@ -1,5 +1,6 @@
 brew 'git'
 brew 'bash'
+brew 'bash-completion'
 brew 'tmux'
 brew 'imagemagick'
 brew 'wget'
