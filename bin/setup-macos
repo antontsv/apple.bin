@@ -39,6 +39,10 @@ if ! brew_cask_is_installed 'hammerspoon';then
     verbose_exec 'brew cask install hammerspoon'
 fi;
 
+if [ -x "/usr/libexec/ApplicationFirewall/socketfilterfw" ];then
+    silent_exec_with_title 'Enable Mac Firewall' 'sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on'
+fi;
+
 if [ -f "$HOME/.misc/Brewfile" ];then
     msg 'Installing brew packages declared in Brewfile...'
     verbose_exec "brew bundle --file=$HOME/.misc/Brewfile"
