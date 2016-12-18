@@ -154,6 +154,14 @@ defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 # Follow the keyboard focus while zoomed in
 defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
+###############################################################################
+# Security                                                                    #
+###############################################################################
+
+defaults write com.apple.screensaver askForPassword -int 1
+# 0 - ask for password immediately when screensaver starts
+# value is in seconds
+defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 ###############################################################################
 # Finder                                                                      #
