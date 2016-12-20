@@ -98,7 +98,7 @@ if [ -r "$expected_icon_file" ];then
     cp "$temp_dir.icns" "/tmp/$preview_app_name.sapp/Contents/Resources/"
     cd "/tmp/$preview_app_name.sapp/Contents" || fatal "Cannot enter sample app directory /tmp/$preview_app_name.sapp"
     sed "s/blah.icns/$temp_dir.icns/" Info.plist > Info2.plist
-    mv Info2.plist Info.plist 
+    mv Info2.plist Info.plist
     mv "/tmp/$preview_app_name.sapp" "/tmp/$preview_app_name.app"
     open "/tmp/$preview_app_name.app"
     verbose_exit_code "Opening sample app with created icns file..."
