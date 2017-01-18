@@ -15,10 +15,10 @@ function ScreenLockWatcher()
             caffeineUnmute = not audioOutput:muted()
             audioOutput:setMuted(true)
             -- remove all keys from ssh-agent
-            hs.task.new("/usr/bin/ssh-add",
+            hs.task.new(os.getenv("HOME") .. "/bin/ssh-agent-ctrl",
                         function() end,
                         function() return false end,
-                        {"-D"}):start()
+                        {"-d"}):start()
         elseif (eventType == hs.caffeinate.watcher.screensDidUnlock) then
             if caffeineUnmute then
                 hs.audiodevice.defaultOutputDevice():setMuted(false)
