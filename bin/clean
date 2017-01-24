@@ -1,0 +1,14 @@
+#!/usr/bin/env awesome-bash
+
+awesome_shell_help <<_HELP_
+Usage: $awesome_shell_script_name
+    Performs various clean ups
+_HELP_
+#awesome-shell ref:6764e68
+
+awesome_shell_include password
+
+keep_sudo_alive
+silent_exec_with_title 'Flush local DNS' 'sudo killall -HUP mDNSResponder'
+
+
