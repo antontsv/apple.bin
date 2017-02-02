@@ -1,0 +1,3 @@
+[submodule ".vim/bundle/dash"]
+	path = .vim/bundle/dash
+	url = https://github.com/rizzatti/dash.vim
