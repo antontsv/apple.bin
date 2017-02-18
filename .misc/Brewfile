@@ -9,6 +9,7 @@ brew 'the_silver_searcher'
 brew 'ctags'
 brew 'reattach-to-user-namespace', args: ['with-wrap-pbcopy-and-pbpaste']
 brew 'shellcheck'
+brew 'go', args: ['cross-compile-common']
 
 cask 'iterm2'
 cask 'gimp'
