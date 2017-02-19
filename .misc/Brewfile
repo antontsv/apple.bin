@@ -10,6 +10,8 @@ brew 'ctags'
 brew 'reattach-to-user-namespace', args: ['with-wrap-pbcopy-and-pbpaste']
 brew 'shellcheck'
 brew 'go', args: ['cross-compile-common']
+brew 'graphviz'
+
 
 cask 'iterm2'
 cask 'gimp'
@@ -17,3 +19,4 @@ cask 'google-chrome'
 cask 'opera'
 cask 'skype'
 cask 'dash'
+cask 'visual-studio-code'

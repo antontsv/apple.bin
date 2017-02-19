@@ -1,3 +1,6 @@
 [submodule ".vim/bundle/dash"]
 	path = .vim/bundle/dash
 	url = https://github.com/rizzatti/dash.vim
+[submodule "bin/FlameGraph"]
+	path = bin/FlameGraph
+	url = https://github.com/brendangregg/FlameGraph
