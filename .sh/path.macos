@@ -1,1 +1,1 @@
-prepend_path "$HOME/bin.FlameGraph"
+prepend-path "$HOME/bin/FlameGraph"
