@@ -20,3 +20,7 @@ cask 'opera'
 cask 'skype'
 cask 'dash'
 cask 'visual-studio-code'
+cask 'virtualbox'
+cask 'vagrant'
+cask 'vagrant-manager'
+
