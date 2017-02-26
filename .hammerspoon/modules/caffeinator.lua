@@ -31,5 +31,12 @@ function Caffeinator(initial_state)
         setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
     end
 
+    function self.destroy()
+        if caffeine then
+            caffeine:delete()
+            hs.caffeinate.set("displayIdle", false, false)
+        end
+    end
+
     return self
 end

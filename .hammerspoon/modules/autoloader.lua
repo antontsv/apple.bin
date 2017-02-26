@@ -30,6 +30,9 @@ function Autoloader()
     end
 
     function reloadModule(name)
+        if loaded_modules[name] and loaded_modules[name].instance.destroy then
+            loaded_modules[name].instance.destroy()
+        end
         cur_dir = hs.fs.currentDir()
         hs.fs.chdir(config_dir)
         combined_name = 'modules.' .. name
