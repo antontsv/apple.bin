@@ -7,6 +7,7 @@ function Caffeinator(initial_state)
 
     -- menu icon to access Mac's caffeine functions
     local caffeine = hs.menubar.new()
+    local modes = {'displayIdle','systemIdle','system'}
     local requested_state = initial_state == nil or initial_state
 
     function setCaffeineDisplay(state)
@@ -22,19 +23,27 @@ function Caffeinator(initial_state)
     end
 
     function caffeineClicked()
-        setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
+        new_state=hs.caffeinate.toggle(modes[1])
+        setCaffeineState(new_state)
+        setCaffeineDisplay(new_state)
+    end
+
+    function setCaffeineState(state)
+        for i=1,#modes do
+            hs.caffeinate.set(modes[i], state, state)
+        end
     end
 
     if caffeine then
         caffeine:setClickCallback(caffeineClicked)
-        hs.caffeinate.set("displayIdle", requested_state, requested_state)
-        setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
+        setCaffeineState(requested_state)
+        setCaffeineDisplay(hs.caffeinate.get(modes[1]))
     end
 
     function self.destroy()
         if caffeine then
             caffeine:delete()
-            hs.caffeinate.set("displayIdle", false, false)
+            setCaffeineState(false)
         end
     end
 
