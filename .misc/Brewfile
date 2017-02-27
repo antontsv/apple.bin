@@ -23,4 +23,5 @@ cask 'visual-studio-code'
 cask 'virtualbox'
 cask 'vagrant'
 cask 'vagrant-manager'
+cask 'keepingyouawake'
 
