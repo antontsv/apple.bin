@@ -7,6 +7,10 @@ autoloader = Autoloader()
 -- for all notifications and messaging needs
 messenger = autoloader.loadModule('messenger')
 
+-- prevent Mac from sleeping,
+-- it should also create Moon-like menu icon
+autoloader.loadModule('caffeinator')
+
 -- performs actions upon screen lock:
 -- mute audio, remove identities from SSH-agent, etc.
 autoloader.loadModule('screenLockWatcher')
