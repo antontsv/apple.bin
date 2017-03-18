@@ -11,6 +11,7 @@ brew 'reattach-to-user-namespace', args: ['with-wrap-pbcopy-and-pbpaste']
 brew 'shellcheck'
 brew 'go', args: ['cross-compile-common']
 brew 'graphviz'
+brew 'gnupg2'
 
 
 cask 'iterm2'
