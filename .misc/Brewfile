@@ -12,6 +12,8 @@ brew 'shellcheck'
 brew 'go', args: ['cross-compile-common']
 brew 'graphviz'
 brew 'gnupg2'
+tap 'go-delve/delve'
+brew 'go-delve/delve/delve'
 
 
 cask 'iterm2'
