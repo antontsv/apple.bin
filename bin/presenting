@@ -94,7 +94,8 @@ APPLE_SCRIPT
     silent_exec_with_title "Quit finder" apple_quit_finder
 else
     silent_exec_with_title "Starting finder" apple_start_finder
-    silent_exec_with_title "Reveal Dock" 'apple_toggle_dock 1'
+    # If you want to reveal Dock, upon invoking OFF mode:
+    #silent_exec_with_title "Reveal Dock" 'apple_toggle_dock 1'
     silent_exec_with_title "Revealing desktop icons" desktopshow
     silent_exec_with_title "Unset Apple's Do Not Disturb" 'apple_do_not_disturb 0'
 fi;
