@@ -69,9 +69,15 @@ apple_start_finder(){
 }
 
 apple_toggle_dock(){
+    file="$TMPDIR/presenting_dock_autohide"
     if [ "$1" = "1" ];then
-        defaults write com.apple.dock autohide -bool false
+        echo 
+        if [ ! -r "$file" ] || [ "$(cat $file)" != "1" ];then
+            defaults write com.apple.dock autohide -bool false
+        fi;
+        rm -f "$file"
     else
+        defaults read com.apple.dock autohide > "$file"
         defaults write com.apple.dock autohide -bool true
     fi;
     killall Dock
@@ -94,7 +100,7 @@ APPLE_SCRIPT
     silent_exec_with_title "Quit finder" apple_quit_finder
 else
     silent_exec_with_title "Starting finder" apple_start_finder
-    ask_to_confirm "Do you want to show dock permanently?" && silent_exec_with_title "Reveal Dock" 'apple_toggle_dock 1'
+    silent_exec_with_title "Reveal Dock" 'apple_toggle_dock 1'
     silent_exec_with_title "Revealing desktop icons" desktopshow
     silent_exec_with_title "Unset Apple's Do Not Disturb" 'apple_do_not_disturb 0'
 fi;
