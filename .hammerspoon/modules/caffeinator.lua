@@ -7,7 +7,7 @@ function Caffeinator(initial_state)
 
     -- menu icon to access Mac's caffeine functions
     local caffeine = hs.menubar.new()
-    local modes = {'displayIdle','systemIdle','system'}
+    local modes = {'displayIdle'}
     local requested_state = initial_state == nil or initial_state
 
     function setCaffeineDisplay(state)
