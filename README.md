@@ -13,7 +13,7 @@ Bash completion rules can be found in `.sh` directory.
 
  OR 
 
-* you can go for complete dot files and scripts setup using [this one-liner](https://github.com/antontsv/.files#comprehensive-setup). This includes dotfiles manager, completion rules, awesome-bash, etc.
+* you can go for complete dot files and scripts setup using [this one-liner](https://github.com/antontsv/.files#comprehensive-setup). It includes dotfiles manager, completion rules, awesome-bash, etc.
 
 # Notable scripts
 
