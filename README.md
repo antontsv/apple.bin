@@ -1,18 +1,19 @@
 # Scripts and executable files for 
 
-You can copy scripts to any location in your PATH
-or install to ~/bin with [homeshick](https://github.com/antontsv/homeshick)
+Scripts in this repository are designed for Mac OS only
 
-Some of the scripts are using `#!/usr/bin/env awesome-bash` shebang,
-which requires [awesome-shell installation] (https://github.com/antontsv/awesome-shell#installation)
-
-These scripts are designed for Mac OS only
+Some of the scripts are using `#!/usr/bin/env awesome-bash` shebang, which requires [awesome-shell installation] (https://github.com/antontsv/awesome-shell#installation)
 
 # Completion
 
-Completion rules can be found in `.sh` directory,
-if you use one-time [homeshick-based setup script](https://git.io/all.files),
-completion rules will be installed and kept up-to-date automatically
+Bash completion rules can be found in `.sh` directory.
+
+# Install
+* You can copy scripts to any location in your PATH.
+
+ OR 
+
+* you can go for complete dot files and scripts setup using [this one-liner](https://github.com/antontsv/.files#comprehensive-setup). This includes dotfiles manager, completion rules, awesome-bash, etc.
 
 # Notable scripts
 
