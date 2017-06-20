@@ -56,7 +56,7 @@ function WindowController()
       f.x = max.x
       f.y = max.y
       f.w = max.w
-      f.h = max.h /2 
+      f.h = max.h/2
       win:setFrame(f)
     end)
 
@@ -78,7 +78,7 @@ function WindowController()
       local f = win:frame()
       local screen = win:screen()
       local max = screen:frame()
-      f.w = f.w + 10 
+      f.w = f.w + 10
       win:setFrame(f)
     end)
 
@@ -92,6 +92,8 @@ function WindowController()
       win:setFrame(f)
     end)
 
+    -- Resize current window to half of screen
+    -- and place it in the center
     hs.hotkey.bind(CTRL_OPT_CMD, "0", function()
       local win = hs.window.focusedWindow()
       local f = win:frame()
@@ -104,7 +106,19 @@ function WindowController()
       f.h = max.h / 2
       win:setFrame(f)
     end)
-    
+
+    -- Center current window
+    hs.hotkey.bind(CTRL_OPT_CMD, "c", function()
+      local win = hs.window.focusedWindow()
+      local f = win:frame()
+      local screen = win:screen()
+      local max = screen:frame()
+
+      f.x = (max.w + max.x - f.w)/2
+      f.y = (max.h + max.y - f.h)/2
+      win:setFrame(f)
+    end)
+
     -- Simulate keystrokes on the field where paste is disabled
     hs.hotkey.bind(CTRL_OPT_CMD, "v", function()
       hs.eventtap.keyStrokes(hs.pasteboard.getContents())
