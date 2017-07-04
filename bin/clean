@@ -11,4 +11,4 @@ awesome_shell_include password
 
 keep_sudo_alive
 silent_exec_with_title 'Flush local DNS' 'sudo killall -HUP mDNSResponder'
-silent_exec_with_title 'Clear GPG keys from keychain' 'sudo security find-generic-password -s GnuPG'
+silent_exec_with_title 'Clear GPG keys from keychain' 'sudo security delete-generic-password -s GnuPG'
