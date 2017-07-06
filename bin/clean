@@ -13,3 +13,8 @@ keep_sudo_alive
 silent_exec_with_title 'Flush local DNS' 'sudo killall -HUP mDNSResponder'
 silent_exec_with_title 'Clear GPG keys from keychain' 'sudo security delete-generic-password -s GnuPG'
 silent_exec_with_title 'Clear SSH agent' 'ssh-add -D'
+
+# Clear any stored keychain passwords
+delete_ssh_keys_query="delete from genp where agrp=\"com.apple.ssh.passphrases\""
+ssh_keychain_sqlite_file=$(find $HOME/Library/Keychains -name keychain-2.db)
+[ -f "$ssh_keychain_sqlite_file" ] && silent_exec_with_title 'Attempt to clear stored SSH pass phrases' "/usr/bin/sqlite3 $ssh_keychain_sqlite_file '$delete_ssh_keys_query'"
