@@ -14,6 +14,8 @@ brew 'graphviz'
 brew 'gnupg2'
 tap 'go-delve/delve'
 brew 'go-delve/delve/delve'
+tap 'antontsv/extras'
+brew 'antontsv/extras/sshpass'
 
 
 cask 'iterm2'
