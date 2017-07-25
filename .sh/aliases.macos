@@ -33,3 +33,5 @@ alias chrome="open -a Google\ Chrome"
 
 # crypto
 alias show_app_signature="codesign -dv --verbose=4"
+
+alias trim_trailing_space="gsed -i 's/\s\+$//g'"
