@@ -5,7 +5,7 @@ awesome_shell_help <<_HELP_
 Usage: $awesome_shell_script_name
 
     Set up Mac in presenting mode when using projector,
-    or video conferensing
+    or video conferencing
 
 _HELP_
 
@@ -71,7 +71,7 @@ apple_start_finder(){
 apple_toggle_dock(){
     file="$TMPDIR/presenting_dock_autohide"
     if [ "$1" = "1" ];then
-        echo 
+        echo
         if [ ! -r "$file" ] || [ "$(cat $file)" != "1" ];then
             defaults write com.apple.dock autohide -bool false
         fi;
