@@ -1,0 +1,17 @@
+#!/usr/bin/env awesome-bash
+# vim: ft=sh:
+
+awesome_shell_help <<_HELP_
+Usage: $awesome_shell_script_name
+
+    Launches Godoc with with type analysis
+    plus it opens up browser window
+
+
+_HELP_
+
+#awesome-shell ref:cd7132b
+
+port=6060
+nohup godoc -http localhost:$port -analysis type 1>/dev/null 2>/dev/null &
+open http://localhost:$port
