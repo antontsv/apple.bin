@@ -10,8 +10,27 @@ Usage: $awesome_shell_script_name
 
 _HELP_
 
-#awesome-shell ref:cd7132b
+#awesome-shell ref:d089705
 
 port=6060
+check_godoc_web_available(){
+    res=$(curl -s -f http://localhost:$port)
+    status=$?
+    if [ $status -ne 0 ]; then
+        return $status;
+    else
+        [[ "$res" = *"Go Programming"* ]];
+        return $?
+    fi;
+}
+
 nohup godoc -http localhost:$port -analysis type 1>/dev/null 2>/dev/null &
-open http://localhost:$port
+i=0
+max_wait_sec=3
+while ! check_godoc_web_available ; do
+ i=$((i+1))
+ [ $i -gt $max_wait_sec ] && fatal "Godoc web failed to start";
+ pause_with_delay_in_seconds 1
+done
+silent_exec_with_title "Opening documentation in browser" open http://localhost:$port
+
