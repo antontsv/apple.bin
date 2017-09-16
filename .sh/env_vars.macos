@@ -1,2 +1,2 @@
 # Go
-export GOPATH=$HOME/experiments/go-lang
+export GOPATH=$HOME
