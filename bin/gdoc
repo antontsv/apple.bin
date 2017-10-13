@@ -2,15 +2,21 @@
 # vim: ft=sh:
 
 awesome_shell_help <<_HELP_
-Usage: $awesome_shell_script_name
+Usage: $awesome_shell_script_name [stop]
 
     Launches Godoc with with type analysis
     plus it opens up browser window
 
+    stop argument kill previously launched godoc web 
 
 _HELP_
 
 #awesome-shell ref:d089705
+
+if [ "$1" = "stop" ];then
+   silent_exec_with_title "Killing godoc" pkill godoc  
+   exit $?;
+fi;
 
 port=6060
 check_godoc_web_available(){
@@ -33,4 +39,3 @@ while ! check_godoc_web_available ; do
  pause_with_delay_in_seconds 1
 done
 silent_exec_with_title "Opening documentation in browser" open http://localhost:$port
-
