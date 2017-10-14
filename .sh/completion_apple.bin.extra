@@ -71,3 +71,15 @@ _gpg_mail_completion(){
     return 0
 }
 complete -F _gpg_mail_completion gpg-mail
+
+_gdoc_completion(){
+    local cur opts base
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    opts=" stop"
+    if [ "${cur:0:1}" = "-" ]; then
+        opts="$opts -h --help"
+    fi;
+    COMPREPLY=($(compgen -W "${opts:1}" -- ${cur}))
+    return 0
+}
+complete -F _gdoc_completion gdoc
