@@ -7,7 +7,7 @@ Usage: $awesome_shell_script_name [stop]
     Launches Godoc with with type analysis
     plus it opens up browser window
 
-    stop argument kill previously launched godoc web 
+    iF "stop" argument will kill previously launched godoc web 
 
 _HELP_
 
