@@ -70,6 +70,6 @@ _gpg_mail_completion(){
     COMPREPLY=($(compgen -W "$opts" -- "$cur"))
     return 0
 }
-complete -F _gpg_mail_completion gpg-mail
+complete -F _gpg_mail_completion mail-secure
 
 complete -W "-h --help stop" gdoc
