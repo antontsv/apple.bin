@@ -35,3 +35,9 @@ alias chrome="open -a Google\ Chrome"
 alias show_app_signature="codesign -dv --verbose=4"
 
 alias trim_trailing_space="gsed -i 's/\s\+$//g'"
+
+# in Tmux
+if [ -n "${TMUX}" ];then
+    alias pbcopy="reattach-to-user-namespace pbcopy"
+    alias pbpaste="reattach-to-user-namespace pbpaste"
+fi;
