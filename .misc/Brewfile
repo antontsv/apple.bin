@@ -13,6 +13,7 @@ brew 'go', args: ['cross-compile-common']
 brew 'graphviz'
 brew 'gnupg2'
 brew 'jq'
+brew 'ffmpeg'
 tap 'go-delve/delve'
 brew 'go-delve/delve/delve'
 tap 'antontsv/extras'
