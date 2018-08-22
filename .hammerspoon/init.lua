@@ -19,16 +19,6 @@ autoloader.loadModule('screenLockWatcher')
 -- though several keyboard combinations
 autoloader.loadModule('windowController')
 
--- Sets up for the night:
--- mostly tweaks display color temperature
-autoloader.loadModule('nightWatcher',
-    {
-        nightDisplayTemperature = 2800,
-        nightStart = '20:00',
-        nightEnd = '7:00'
-    }
-)
-
 -- display alert when config is loaded
 -- if Hammerspoon crashes, you won't see message
 messenger.message('Hammerspoon config - OK', 1)
