@@ -16,8 +16,6 @@ brew 'jq'
 brew 'ffmpeg'
 brew 'dep'
 brew 'pinentry-mac'
-tap 'go-delve/delve'
-brew 'go-delve/delve/delve'
 tap 'antontsv/extras'
 brew 'antontsv/extras/sshpass'
 
