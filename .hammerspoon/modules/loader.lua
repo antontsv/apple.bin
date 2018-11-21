@@ -1,4 +1,4 @@
-function Autoloader(dir)
+function ModuleLoader(dir)
     local self={}
 
     local config_dir = os.getenv('HOME') .. '/.homesick/repos/apple.bin/.hammerspoon/'
