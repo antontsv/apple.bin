@@ -1,7 +1,8 @@
-function Autoloader()
+function Autoloader(dir)
     local self={}
 
     local config_dir = os.getenv('HOME') .. '/.homesick/repos/apple.bin/.hammerspoon/'
+    self.module_dir = dir
 
     function self.reload()
         hs.reload()
@@ -22,9 +23,9 @@ function Autoloader()
         if loaded_modules[name] then
             return loaded_modules[name].instance
         end
-        require ('modules.' .. name)
+        require (self.module_dir .. '.' .. name)
         loaded_module = _G[(name:gsub('^%l', string.upper))](params)
-        self.addWatcher('modules/' .. name .. '.lua', function() reloadModule(name) end)
+        self.addWatcher(self.module_dir .. '/' .. name .. '.lua', function() reloadModule(name) end)
         loaded_modules[name] = {instance = loaded_module, init_params = params}
         return loaded_module
     end
@@ -35,7 +36,7 @@ function Autoloader()
         end
         cur_dir = hs.fs.currentDir()
         hs.fs.chdir(config_dir)
-        combined_name = 'modules.' .. name
+        combined_name = self.module_dir .. '.' .. name
         package.loaded[combined_name] = nil
         require (combined_name)
         loaded_module = _G[(name:gsub('^%l', string.upper))](loaded_modules[name].init_params)
