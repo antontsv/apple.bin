@@ -1,8 +1,8 @@
 function ModuleLoader(dir)
     local self={}
 
-    local config_dir = os.getenv('HOME') .. '/.homesick/repos/apple.bin/.hammerspoon/'
-    self.module_dir = dir
+    local config_dir = os.getenv('HOME') .. '/.hammerspoon/'
+    local module_dir = dir
 
     function self.reload()
         hs.reload()
@@ -10,33 +10,35 @@ function ModuleLoader(dir)
 
     -- watch & reload config fully or partically if something changed
     function self.addWatcher(file_path, callback)
+        path = hs.fs.pathToAbsolute(config_dir .. file_path)
         if callback == nil then
-            hs.pathwatcher.new(config_dir .. file_path, self.reload):start()
+            hs.pathwatcher.new(path, self.reload):start()
         else
-            hs.pathwatcher.new(config_dir .. file_path, callback):start()
+            hs.pathwatcher.new(path, callback):start()
         end
     end
 
     local loaded_modules = {}
+    local _ = {}
 
     function self.loadModule(name, params)
         if loaded_modules[name] then
             return loaded_modules[name].instance
         end
-        require (self.module_dir .. '.' .. name)
+        require (module_dir .. '.' .. name)
         loaded_module = _G[(name:gsub('^%l', string.upper))](params)
-        self.addWatcher(self.module_dir .. '/' .. name .. '.lua', function() reloadModule(name) end)
+        self.addWatcher(module_dir .. '/' .. name .. '.lua', function() _.reloadModule(name) end)
         loaded_modules[name] = {instance = loaded_module, init_params = params}
         return loaded_module
     end
 
-    function reloadModule(name)
+    function _.reloadModule(name)
         if loaded_modules[name] and loaded_modules[name].instance.destroy then
             loaded_modules[name].instance.destroy()
         end
         cur_dir = hs.fs.currentDir()
         hs.fs.chdir(config_dir)
-        combined_name = self.module_dir .. '.' .. name
+        combined_name = module_dir .. '.' .. name
         package.loaded[combined_name] = nil
         require (combined_name)
         loaded_module = _G[(name:gsub('^%l', string.upper))](loaded_modules[name].init_params)
@@ -46,7 +48,6 @@ function ModuleLoader(dir)
     end
 
     hs.hotkey.bind({'ctrl','alt','cmd'}, 'R', self.reload)
-    self.addWatcher('init.lua')
 
     return self
 end

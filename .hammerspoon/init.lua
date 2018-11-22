@@ -3,6 +3,7 @@ require 'modules.loader'
 -- watches Lua files
 -- provides short-cuts to reload Hammerspoon config
 loader = ModuleLoader('modules')
+loader.addWatcher('init.lua')
 
 -- for all notifications and messaging needs
 messenger = loader.loadModule('messenger')
@@ -21,12 +22,12 @@ loader.loadModule('windowController')
 
 -- Automatically load any modules added to auto_dir
 auto_dir = 'autoload'
-local iterFn, dirObj = hs.fs.dir(auto_dir)
+local iterFn, dirObj = hs.fs.dir(os.getenv('HOME') .. '/.hammerspoon/' .. auto_dir)
 if iterFn then
-  autoloader = ModuleLoader(auto_dir)
+    autoloader = ModuleLoader(auto_dir)
   for file in iterFn, dirObj do
     if file:sub(-4) == ".lua" then
-      autoloader.loadModule(file:sub(0,-5))
+        autoloader.loadModule(file:sub(0,-5))
     end
   end
 end
