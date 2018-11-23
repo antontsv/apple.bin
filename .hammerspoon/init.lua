@@ -2,31 +2,32 @@ require 'modules.loader'
 
 -- watches Lua files
 -- provides short-cuts to reload Hammerspoon config
-loader = ModuleLoader()
+loader = ModuleLoader('modules')
 loader.addWatcher('init.lua')
 
 -- for all notifications and messaging needs
-messenger = loader.loadModule('modules', 'messenger')
+messenger = loader.loadModule('messenger')
 
 -- prevent Mac from sleeping,
 -- it should also create Moon-like menu icon
-loader.loadModule('modules', 'caffeinator')
+loader.loadModule('caffeinator')
 
 -- performs actions upon screen lock:
 -- mute audio, remove identities from SSH-agent, etc.
-loader.loadModule('modules', 'screenLockWatcher')
+loader.loadModule('screenLockWatcher')
 
 -- Controls focused window size and movement
 -- though several keyboard combinations
-loader.loadModule('modules', 'windowController')
+loader.loadModule('windowController')
 
 -- Automatically load any modules added to auto_dir
 auto_dir = 'autoload'
 local iterFn, dirObj = hs.fs.dir(os.getenv('HOME') .. '/.hammerspoon/' .. auto_dir)
 if iterFn then
+  autoloader = ModuleLoader(auto_dir)
   for file in iterFn, dirObj do
     if file:sub(-4) == ".lua" then
-        loader.loadModule(auto_dir, file:sub(0,-5))
+        autoloader.loadModule(file:sub(0,-5))
     end
   end
 end

@@ -1,5 +1,8 @@
-function ModuleLoader()
-    local self={}
+
+local loaded_modules = {}
+
+function ModuleLoader(dir)
+    local self = {}
 
     local config_dir = os.getenv('HOME') .. '/.hammerspoon/'
 
@@ -17,15 +20,14 @@ function ModuleLoader()
         end
     end
 
-    local loaded_modules = {}
-
-    function self.loadModule(module_dir, name, params)
+    function self.loadModule(name, params)
+        local module_dir = dir
         local combined_name = module_dir .. '.' .. name
         if loaded_modules[combined_name] then
             return loaded_modules[combined_name].instance
         end
         require (combined_name)
-        loaded_module = _G[(name:gsub('^%l', string.upper))](params)
+        local loaded_module = _G[(name:gsub('^%l', string.upper))](params)
         self.addWatcher(module_dir .. '/' .. name .. '.lua', function() reloadModule(combined_name) end)
         loaded_modules[combined_name] = {instance = loaded_module, init_params = params, name = name, dir = module_dir}
         return loaded_module
@@ -33,6 +35,7 @@ function ModuleLoader()
 
     function reloadModule(combined_name)
         if not loaded_modules[combined_name] then
+            hs.alert.show(combined_name)
             return
         end
         if loaded_modules[combined_name].instance.destroy then
