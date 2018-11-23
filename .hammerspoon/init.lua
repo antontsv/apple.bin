@@ -31,6 +31,7 @@ if iterFn then
   end
 end
 
+-- Key combination to reload config
 hs.hotkey.bind({'ctrl','alt','cmd'}, 'R', hs.reload)
 
 -- display alert when config is loaded
