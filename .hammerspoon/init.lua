@@ -31,6 +31,8 @@ if iterFn then
   end
 end
 
+hs.hotkey.bind({'ctrl','alt','cmd'}, 'R', hs.reload)
+
 -- display alert when config is loaded
 -- if Hammerspoon crashes, you won't see message
 messenger.message('Hammerspoon config - OK', 1)

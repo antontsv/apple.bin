@@ -49,7 +49,5 @@ function ModuleLoader()
         hs.fs.chdir(cur_dir)
     end
 
-    hs.hotkey.bind({'ctrl','alt','cmd'}, 'R', self.reload)
-
     return self
 end
