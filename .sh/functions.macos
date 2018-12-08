@@ -25,9 +25,12 @@ alert() {
 }
 
 set_terminal_profile() {
-  _help_including_empty "$@" <<< "Usage: set_terminal_profile 'Name of profile' 
+  profile="$@"
+  if [ "$(type -t _help_including_empty)" == 'function' ] || [ -z "$profile" ];then
+  _help_including_empty "$@" <<< "Usage: set_terminal_profile 'Name of profile'
     Set currently running terminal app profile
     Example:  set_terminal_profile 'Solarized Dark'" || return 1;
-  profile="$@" 
+  fi;
   osascript -e "tell app \"Terminal\" to set current settings of first window to settings set \"$profile\""
 };
+export -f set_terminal_profile
