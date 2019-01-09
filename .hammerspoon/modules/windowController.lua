@@ -21,7 +21,17 @@ function WindowController()
     -- Note: Mac's Control + Command + F triggers app full-screen mode
     hs.hotkey.bind(CTRL_OPT_CMD, "f", self.maximizeCurrent)
 
-     hs.hotkey.bind(CTRL_OPT_CMD, "Left", function()
+    -- Move currently focused window to next available screen
+    function self.moveToNextScreen()
+      local win = hs.window.focusedWindow()
+      if win then
+          win:moveToScreen(win:screen():next())
+      end
+    end
+
+    hs.hotkey.bind(CTRL_OPT_CMD, "n", self.moveToNextScreen)
+
+    hs.hotkey.bind(CTRL_OPT_CMD, "Left", function()
       local win = hs.window.focusedWindow()
       local f = win:frame()
       local screen = win:screen()
