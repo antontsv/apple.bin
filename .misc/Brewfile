@@ -6,6 +6,7 @@ brew 'imagemagick'
 brew 'wget'
 brew 'gnu-sed'
 brew 'the_silver_searcher'
+brew 'ripgrep'
 brew 'ctags'
 brew 'reattach-to-user-namespace', args: ['with-wrap-pbcopy-and-pbpaste']
 brew 'shellcheck'
