@@ -40,7 +40,7 @@ apple_do_not_disturb(){
     if [ "$1" -eq 1 ] && [ $currentDNDStatus -eq 0 ];then
         defaults -currentHost write $HOME/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturb -boolean true
         defaults -currentHost write $HOME/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturbDate -date "`date -u +\"%Y-%m-%d %H:%M:%S +000\"`"
-    elif ["$1" -eq 0 ] && [ $currentDNDStatus -eq 1 ];then
+    elif [ "$1" -eq 0 ] && [ $currentDNDStatus -eq 0 ];then
        defaults -currentHost write $HOME/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturb -boolean false
        defaults -currentHost delete $HOME/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturbDate
     fi;
