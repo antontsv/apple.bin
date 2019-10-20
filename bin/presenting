@@ -40,7 +40,7 @@ apple_do_not_disturb(){
     if [ "$1" -eq 1 ] && [ $currentDNDStatus -eq 0 ];then
         defaults -currentHost write $HOME/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturb -boolean true
         defaults -currentHost write $HOME/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturbDate -date "`date -u +\"%Y-%m-%d %H:%M:%S +000\"`"
-    elif [ "$1" -eq 0 ] && [ $currentDNDStatus -eq 0 ];then
+    elif [ "$1" -eq 0 ] && [ $currentDNDStatus -eq 1 ];then
        defaults -currentHost write $HOME/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturb -boolean false
        defaults -currentHost delete $HOME/Library/Preferences/ByHost/com.apple.notificationcenterui doNotDisturbDate
     fi;
@@ -56,15 +56,13 @@ apple_start_finder(){
 }
 
 apple_toggle_dock(){
-    file="$TMPDIR/presenting_dock_autohide"
+    defdock="$TMPDIR/presenting_dock_autohide"
+    [ ! -r "$defdock" ] && defaults read com.apple.dock autohide > "$defdock"
     if [ "$1" = "1" ];then
-        echo
-        if [ ! -r "$file" ] || [ "$(cat $file)" != "1" ];then
+        if [ "$(cat $defdock)" != "1" ];then
             defaults write com.apple.dock autohide -bool false
         fi;
-        rm -f "$file"
     else
-        defaults read com.apple.dock autohide > "$file"
         defaults write com.apple.dock autohide -bool true
     fi;
     killall Dock
