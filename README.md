@@ -11,7 +11,7 @@ Bash completion rules can be found in `.sh` directory.
 # Install
 * You can copy scripts to any location in your PATH.
 
- OR 
+ OR
 
 * you can go for complete dot files and scripts setup using [this one-liner](https://github.com/antontsv/.files#comprehensive-setup). It includes dotfiles manager, completion rules, awesome-bash, etc.
 
