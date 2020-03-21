@@ -45,8 +45,8 @@ defaults write com.apple.systemuiserver menuExtras -array \
 # Disable:
 #defaults delete NSGlobalDomain AppleInterfaceStyle
 
-# Set highlight color to aqua/green:
-defaults write NSGlobalDomain AppleHighlightColor -string "0.750710 0.978314 0.390399"
+# Set highlight color to green:
+defaults write NSGlobalDomain AppleHighlightColor -string "0.065048 0.837645 0.035615 Other"
 
 # Set sidebar icon size to medium
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
