@@ -1,2 +1,5 @@
 # Go
 export GOPATH=$HOME
+
+# Do not print message to force zsh 
+export BASH_SILENCE_DEPRECATION_WARNING=1
