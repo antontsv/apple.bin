@@ -12,7 +12,7 @@ awesome_shell_include messages
 
 while IFS= read -r -d '' brewFile
 do
-  if [ -f "$brewFile" ];then
+  if [ -f "$brewFile" ] && ! grep -q lock <<< "$brewFile" ;then
         msg "Installing brew packages declared in $brewFile..."
         verbose_exec "brew bundle --file=$brewFile"    
     fi;
