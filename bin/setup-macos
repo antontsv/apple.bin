@@ -44,17 +44,9 @@ if [ -x "/usr/libexec/ApplicationFirewall/socketfilterfw" ];then
     silent_exec_with_title 'Enable Mac Firewall' 'sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on'
 fi;
 
-if [ -f "$HOME/.misc/Brewfile" ];then
-    msg 'Installing brew packages declared in Brewfile...'
-    verbose_exec "brew bundle --file=$HOME/.misc/Brewfile"
-fi;
+[ -x "$HOME/bin/run-brew" ] && "$HOME/bin/run-brew"
 
-if [ -f "$HOME/.misc/Brewfile.extra" ];then
-    msg 'Installing brew packages declared in Brewfile.extra...'
-    verbose_exec "brew bundle --file=$HOME/.misc/Brewfile.extra"
-fi;
-
-if ! $(ls "$HOME/Library/Fonts" | grep -q Powerline 1>/dev/null 2>&1); then
+if ! ls "$HOME"/Library/Fonts/*Powerline* 1>/dev/null 2>&1; then
     # known good revision
     fonts_rev='a44abd0e742ad6e7fd8d8bc4c3cad5155c9f3a92'
     download_cmd="curl -L -o $HOME/.misc/poweline-fonts.zip https://github.com/powerline/fonts/archive/$fonts_rev.zip"
