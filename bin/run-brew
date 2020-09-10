@@ -2,18 +2,48 @@
 # vim: ft=sh:
 
 awesome_shell_help <<_HELP_
-Usage: $awesome_shell_script_name [-h|--help]
-Installs packages from ~/.misc/Brewfiles
+Usage: $awesome_shell_script_name [-h|--help] [-i|--interactive]
+Installs packages from ~/.misc/Brewfile* files
+
+-i will ask to confirm each Brewfile to be run
 _HELP_
 
 #awesome-shell ref:e9301cc
 
+interactive=0
+while [[ $# -gt 0 ]]
+do
+    opt="$1"
+    shift
+
+    case $opt in
+        -i|--interactive)
+        interactive=1
+        ;;
+    esac
+done;
+
 awesome_shell_include messages
+
+
+required_utility brew
+
+silent_exec_with_title "Running brew update..." brew update
+
+files=()
 
 while IFS= read -r -d '' brewFile
 do
   if [ -f "$brewFile" ] && ! grep -q lock <<< "$brewFile" ;then
-        msg "Installing brew packages declared in $brewFile..."
-        verbose_exec "brew bundle --file=$brewFile"    
-    fi;
+    files+=("$brewFile")
+  fi;
 done <   <(find "$HOME/.misc" -name 'Brewfile*' -print0)
+
+for brewFile in "${files[@]}"
+do
+    [ $interactive -eq 1 ] && \
+        ! ask_to_confirm "Do you want to run instruction from $brewFile?" && \
+        continue
+    msg "Installing brew packages declared in $brewFile..."
+    verbose_exec "brew bundle --file=$brewFile"
+done
