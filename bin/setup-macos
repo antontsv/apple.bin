@@ -44,7 +44,7 @@ if [ -x "/usr/libexec/ApplicationFirewall/socketfilterfw" ];then
     silent_exec_with_title 'Enable Mac Firewall' 'sudo /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on'
 fi;
 
-[ -x "$HOME/bin/run-brew" ] && "$HOME/bin/run-brew"
+[ -x "$HOME/bin/brewfile-install" ] && "$HOME/bin/brewfile-install"
 
 if ! ls "$HOME"/Library/Fonts/*Powerline* 1>/dev/null 2>&1; then
     # known good revision
