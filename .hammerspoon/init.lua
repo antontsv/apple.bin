@@ -1,3 +1,6 @@
+-- Make sure we are in ~/.hammerspoon since
+hs.fs.chdir(os.getenv('HOME') .. '/.hammerspoon/')
+
 require 'modules.loader'
 
 -- watches Lua files
