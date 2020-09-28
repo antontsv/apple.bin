@@ -1,75 +1,77 @@
 #!/usr/bin/env bash
 
-_basic_help_completion(){
-    local cur opts base
-    cur="${COMP_WORDS[COMP_CWORD]}"
+if [ -n "$BASH_VERSION" ];then
+    _basic_help_completion(){
+        local cur opts base
+        cur="${COMP_WORDS[COMP_CWORD]}"
 
-    opts="-h --help"
-    COMPREPLY=($(compgen -W "$opts" -- "$cur"))
-    return 0
-}
+        opts="-h --help"
+        COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+        return 0
+    }
 
-complete -F _basic_help_completion create-icns mail-mark-as-read
-complete -F _basic_help_completion setup-macos
+    complete -F _basic_help_completion create-icns mail-mark-as-read
+    complete -F _basic_help_completion setup-macos
 
-_ndiag_completion(){
-    local cur opts base
-    cur="${COMP_WORDS[COMP_CWORD]}"
+    _ndiag_completion(){
+        local cur opts base
+        cur="${COMP_WORDS[COMP_CWORD]}"
 
-    opts="--wifi --help -h"
-    COMPREPLY=($(compgen -W "$opts" -- "$cur"))
-    return 0
-}
+        opts="--wifi --help -h"
+        COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+        return 0
+    }
 
-complete -F _ndiag_completion ndiag
+    complete -F _ndiag_completion ndiag
 
-_presenting_config_completion(){
-    local cur opts base
-    cur="${COMP_WORDS[COMP_CWORD]}"
+    _presenting_config_completion(){
+        local cur opts base
+        cur="${COMP_WORDS[COMP_CWORD]}"
 
-    opts="-h --help --on --off"
-    COMPREPLY=($(compgen -W "$opts" -- "$cur"))
-    return 0
-}
+        opts="-h --help --on --off"
+        COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+        return 0
+    }
 
-complete -F _presenting_config_completion presenting
+    complete -F _presenting_config_completion presenting
 
-_bluetooth_completion(){
-    local cur opts base
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    opts=" start stop restart"
-    if [ "${cur:0:1}" = "-" ]; then
-        opts="$opts -h --help"
-    fi;
-    COMPREPLY=($(compgen -W "${opts:1}" -- ${cur}))
-    return 0
-}
-complete -F _bluetooth_completion bluetoothctrl
+    _bluetooth_completion(){
+        local cur opts base
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        opts=" start stop restart"
+        if [ "${cur:0:1}" = "-" ]; then
+            opts="$opts -h --help"
+        fi;
+        COMPREPLY=($(compgen -W "${opts:1}" -- ${cur}))
+        return 0
+    }
+    complete -F _bluetooth_completion bluetoothctrl
 
-_gpg_mail_completion(){
-    local cur prev;
-    COMPREPLY=();
-    _get_comp_words_by_ref cur prev;
-    case $prev in
-        -s|--subject|-h|--help)
-            return 0
-        ;;
-        -f|--file)
-            [ "x$(type -t _filedir_xspec)" = "xfunction" ] && _filedir_xspec
-            return 0
-        ;;
-        -r|--recipient)
-            COMPREPLY=($( compgen -W "$( gpg --list-keys 2>/dev/null | sed -ne 's@^.*<\([^>]*\)>.*$@\1@p')" -- "$cur" ));
-            if [ -e ~/.gnupg/gpg.conf ]; then
-                COMPREPLY=("${COMPREPLY[@]}" $( compgen -W "$( sed -ne 's@^[ \t]*group[ \t][ \t]*\([^=]*\).*$@\1@p' ~/.gnupg/gpg.conf  )" -- "$cur"));
-            fi;
-            return 0
-        ;;
-    esac;
-    opts="-h --help -r --recepient -s --subject -f --file"
-    COMPREPLY=($(compgen -W "$opts" -- "$cur"))
-    return 0
-}
-complete -F _gpg_mail_completion mail-secure
+    _gpg_mail_completion(){
+        local cur prev;
+        COMPREPLY=();
+        _get_comp_words_by_ref cur prev;
+        case $prev in
+            -s|--subject|-h|--help)
+                return 0
+            ;;
+            -f|--file)
+                [ "x$(type -t _filedir_xspec)" = "xfunction" ] && _filedir_xspec
+                return 0
+            ;;
+            -r|--recipient)
+                COMPREPLY=($( compgen -W "$( gpg --list-keys 2>/dev/null | sed -ne 's@^.*<\([^>]*\)>.*$@\1@p')" -- "$cur" ));
+                if [ -e ~/.gnupg/gpg.conf ]; then
+                    COMPREPLY=("${COMPREPLY[@]}" $( compgen -W "$( sed -ne 's@^[ \t]*group[ \t][ \t]*\([^=]*\).*$@\1@p' ~/.gnupg/gpg.conf  )" -- "$cur"));
+                fi;
+                return 0
+            ;;
+        esac;
+        opts="-h --help -r --recepient -s --subject -f --file"
+        COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+        return 0
+    }
+    complete -F _gpg_mail_completion mail-secure
 
-complete -W "-h --help stop" gdoc
+    complete -W "-h --help stop" gdoc
+fi;
