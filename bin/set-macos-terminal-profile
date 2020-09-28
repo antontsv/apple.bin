@@ -1,0 +1,17 @@
+#!/usr/bin/env awesome-bash
+# vim: ft=sh:
+
+awesome_shell_help <<_HELP_
+Usage: $awesome_shell_script_name 'Name of profile' [-h|--help]
+Set currently running terminal app profile
+    Example: $awesome_shell_script_name 'Solarized Dark'
+_HELP_
+
+#awesome-shell ref:4158beb
+
+awesome_shell_include messages
+
+profile="$*"
+
+[ -z "$profile" ] && awesome_shell_show_help
+osascript -e "tell app \"Terminal\" to set current settings of first window to settings set \"$profile\""

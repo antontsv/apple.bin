@@ -23,14 +23,3 @@ alert() {
     Will call hammerspoon to display on-screen alert" || return 1;
   open -g "hammerspoon://show_alert?text=$*"
 }
-
-set_terminal_profile() {
-  profile="$@"
-  if [ "$(type -t _help_including_empty)" == 'function' ] || [ -z "$profile" ];then
-  _help_including_empty "$@" <<< "Usage: set_terminal_profile 'Name of profile'
-    Set currently running terminal app profile
-    Example:  set_terminal_profile 'Solarized Dark'" || return 1;
-  fi;
-  osascript -e "tell app \"Terminal\" to set current settings of first window to settings set \"$profile\""
-};
-export -f set_terminal_profile
