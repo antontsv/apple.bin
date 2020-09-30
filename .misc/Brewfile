@@ -17,6 +17,7 @@ brew 'jq'
 brew 'ffmpeg'
 brew 'dep'
 brew 'pinentry-mac'
+brew 'zsh-syntax-highlighting'
 tap 'antontsv/extras'
 brew 'antontsv/extras/sshpass'
 
