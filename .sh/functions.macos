@@ -23,3 +23,10 @@ alert() {
     Will call hammerspoon to display on-screen alert" || return 1;
   open -g "hammerspoon://show_alert?text=$*"
 }
+
+nclip() {
+  _help "$@" <<< "Usage: nclip
+    'Non-empty' => 'n' + 'clip' for clipboard
+    Filters out empty lines in input and copies result into clipboard using pbcopy" || return 1;
+  grep '\S' - | pbcopy
+}

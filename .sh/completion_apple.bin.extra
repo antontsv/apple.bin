@@ -11,7 +11,7 @@ if [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ];then
     }
 
     complete -F _basic_help_completion create-icns mail-mark-as-read
-    complete -F _basic_help_completion setup-macos
+    complete -F _basic_help_completion setup-macos nclip
 
     _ndiag_completion(){
         local cur opts base
