@@ -31,13 +31,14 @@ if ! has_command 'brew';then
 fi;
 
 function brew_cask_is_installed(){
-    brew cask list "$1" >/dev/null 2>&1
+    brew list "$1" --cask >/dev/null 2>&1
     return $?
 }
 
 if ! brew_cask_is_installed 'hammerspoon';then
     msg 'Installing Hammerspoon...'
-    verbose_exec 'brew cask install hammerspoon'
+    verbose_exec 'brew install hammerspoon --cask'
+    silent_exec_with_title 'Creating hammerspoon autoload directory' "mkdir -p $HOME/.hammerspoon/autoload"
 fi;
 
 if [ -x "/usr/libexec/ApplicationFirewall/socketfilterfw" ];then
