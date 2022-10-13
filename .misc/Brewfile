@@ -8,7 +8,7 @@ brew 'gnu-sed'
 brew 'the_silver_searcher'
 brew 'ripgrep'
 brew 'ctags'
-brew 'reattach-to-user-namespace', args: ['with-wrap-pbcopy-and-pbpaste']
+brew 'reattach-to-user-namespace'
 brew 'shellcheck'
 brew 'go', args: ['cross-compile-common']
 brew 'graphviz'
