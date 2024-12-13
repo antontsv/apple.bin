@@ -1,1 +1,2 @@
+prepend-path "/opt/homebrew"
 prepend-path "$HOME/bin/FlameGraph"
